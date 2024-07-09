@@ -13,6 +13,7 @@ pytest = ">=8.2,<9"
 mypy = "*"
 pre-commit = "*"
 gh = "*"
+go-yq = "*"
 
 [feature.lint.dependencies]
 pre-commit = "*"
