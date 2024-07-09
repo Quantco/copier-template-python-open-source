@@ -58,8 +58,13 @@ minimal_python_version_sortable:
 use_devcontainer:
   type: bool
   help: Should this project use a devcontainer for development?
-  default: no
+  default: false
+
+add_autobump_workflow:
+  type: bool
+  help: Do you want to add a GitHub Workflow to automatically bump `pixi.lock`?
+  default: true
 
 _tasks:
-  -  '"{{ _copier_python }}" -I -c "import sys; sys.path.insert(0, \"{{ _copier_conf.src_path }}\"); import runpy;
+  - '"{{ _copier_python }}" -I -c "import sys; sys.path.insert(0, \"{{ _copier_conf.src_path }}\"); import runpy;
     runpy.run_module(\"tasks\", run_name=\"__main__\")"'

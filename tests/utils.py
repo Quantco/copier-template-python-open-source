@@ -43,7 +43,9 @@ def git_init_add(to_add="."):
 
 @contextlib.contextmanager
 def remove_pixi_env_vars():
-    pixi_vars = {key: value for key, value in os.environ.items() if key.startswith("PIXI_")}
+    pixi_vars = {
+        key: value for key, value in os.environ.items() if key.startswith("PIXI_")
+    }
     for key in pixi_vars:
         del os.environ[key]
     yield

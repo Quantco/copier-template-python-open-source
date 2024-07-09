@@ -33,9 +33,7 @@ def test_precommit(generated_project):
         result.check_returncode()
 
 
-@pytest.mark.parametrize(
-    "use_devcontainer", [True, False]
-)
+@pytest.mark.parametrize("use_devcontainer", [True, False])
 def test_devcontainer(generate_project, use_devcontainer):
     path = generate_project({"use_devcontainer": use_devcontainer})
     paths = [
@@ -45,6 +43,14 @@ def test_devcontainer(generate_project, use_devcontainer):
     ]
     for path in paths:
         assert path.exists() == use_devcontainer
+
+
+@pytest.mark.parametrize("add_autobump_workflow", [True, False])
+def test_add_autobump_workflow(generate_project, add_autobump_workflow):
+    path = generate_project({"add_autobump_workflow": add_autobump_workflow})
+    assert (
+        path / ".github" / "workflows" / "update-lockfiles.yml"
+    ).exists() == add_autobump_workflow
 
 
 @pytest.mark.parametrize(
@@ -65,9 +71,7 @@ def test_minimal_python_version(generate_project, minimal_python_version: str):
         : all_supported_python_versions.index(minimal_python_version_str)
     ]
 
-    path = generate_project(
-        {"minimal_python_version": minimal_python_version}
-    )
+    path = generate_project({"minimal_python_version": minimal_python_version})
     with open(path / "pyproject.toml") as f:
         pyproject_toml_content = f.read()
     assert (

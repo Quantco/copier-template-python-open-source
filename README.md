@@ -6,13 +6,13 @@ For documentation on pixi see [here](https://pixi.sh).
 ## Usage
 
 ```bash
-pixi exec --spec copier --spec ruamel.yaml --spec ruamel.yaml.jinja2 -- copier copy --trust https://github.com/quantco/copier-template-python-open-source <destination-path>
+pixi exec --spec copier --spec ruamel.yaml -- copier copy --trust https://github.com/quantco/copier-template-python-open-source <destination-path>
 ```
 
 To update to a newer template version:
 
 ```bash
-pixi exec --spec copier --spec ruamel.yaml --spec ruamel.yaml.jinja2 -- copier update --defaults --trust
+pixi exec --spec copier --spec ruamel.yaml -- copier update --defaults --trust
 ```
 
 Note that copier will show `Conflict` for files that have manual changes.
