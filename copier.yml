@@ -61,5 +61,5 @@ use_devcontainer:
   default: no
 
 _tasks:
-  -  '"{{ _copier_python }}" -I -c "import sys; sys.path.insert(0, \"{{ _copier_conf.src_path }}\"); import runpy;
+  - '"{{ _copier_python }}" -I -c "import sys; sys.path.insert(0, \"{{ _copier_conf.src_path }}\"); import runpy;
     runpy.run_module(\"tasks\", run_name=\"__main__\")"'

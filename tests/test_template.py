@@ -33,9 +33,7 @@ def test_precommit(generated_project):
         result.check_returncode()
 
 
-@pytest.mark.parametrize(
-    "use_devcontainer", [True, False]
-)
+@pytest.mark.parametrize("use_devcontainer", [True, False])
 def test_devcontainer(generate_project, use_devcontainer):
     path = generate_project({"use_devcontainer": use_devcontainer})
     paths = [
@@ -65,9 +63,7 @@ def test_minimal_python_version(generate_project, minimal_python_version: str):
         : all_supported_python_versions.index(minimal_python_version_str)
     ]
 
-    path = generate_project(
-        {"minimal_python_version": minimal_python_version}
-    )
+    path = generate_project({"minimal_python_version": minimal_python_version})
     with open(path / "pyproject.toml") as f:
         pyproject_toml_content = f.read()
     assert (

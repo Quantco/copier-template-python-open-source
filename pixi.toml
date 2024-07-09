@@ -10,6 +10,9 @@ copier = ">=9.3.1,<10"
 pytest = ">=8.2,<9"
 "ruamel.yaml" = ">=0.17,<0.18"
 "ruamel.yaml.jinja2" = ">=0.2.4,<0.3"
+mypy = "*"
+pre-commit = "*"
+gh = "*"
 
 [feature.lint.dependencies]
 pre-commit = "*"

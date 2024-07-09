@@ -11,8 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  pre-commit-checks:
-    name: Pre-commit Checks
+  pre-commit:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
@@ -26,7 +25,6 @@ jobs:
         run: pixi run pre-commit-run --color=always --show-diff-on-failure
 
   pytest:
-    name: pytest
     timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
@@ -41,7 +39,10 @@ jobs:
             ~/.cache/pre-commit
           key: project-generation-pre-commit-${{ hashFiles('template/.pre-commit-config.yaml.jinja') }}
       - name: Test
-        run: pixi run test
+        run: pixi run test --color=yes
+        env:
+          # needed for test_template_update
+          GH_TOKEN: ${{ github.token }}
 
   test-generated-package-ci:
     name: Test CI of generated package (minimal-python = ${{ matrix.minimal-python-version }})
@@ -69,7 +70,7 @@ jobs:
           git config --global user.email "landocalrissian@example.com"
           git config --global user.name "Lando Calrissian"
           # Generate package with default settings + Windows CI.
-          copier copy \
+          pixi run copier copy \
             --data project_name="Package" \
             --data project_short_description="Example Package" \
             --data github_user="LandoCalrissian" \
