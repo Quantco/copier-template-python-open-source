@@ -1,0 +1,21 @@
+# {{ project_slug }}
+
+[![CI]({{ github_url }}/actions/workflows/ci.yml/badge.svg?branch=main)]({{ github_url }}/actions/workflows/ci.yml)
+{%- if project_short_description %}
+
+{{ project_short_description }}
+{%- endif %}
+
+## Installation
+
+This project is managed by [pixi](https://pixi.sh).
+You can install the package in development mode using:
+
+```bash
+git clone {{ github_url }}
+cd {{ project_slug }}
+
+pixi run pre-commit-install
+pixi run postinstall
+pixi run test
+```

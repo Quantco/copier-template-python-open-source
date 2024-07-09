@@ -1,0 +1,32 @@
+[project]
+name = "copier-template-python-open-source"
+description = "Copier template for python projects using pixi"
+channels = ["conda-forge"]
+platforms = ["linux-64", "osx-arm64", "osx-64", "win-64"]
+
+[dependencies]
+python = ">=3.12"
+copier = ">=9.3.1,<10"
+pytest = ">=8.2,<9"
+"ruamel.yaml" = ">=0.17,<0.18"
+"ruamel.yaml.jinja2" = ">=0.2.4,<0.3"
+
+[feature.lint.dependencies]
+pre-commit = "*"
+insert-license-header = "*"
+docformatter = "*"
+ruff = "*"
+prettier = "*"
+taplo = "*"
+pre-commit-hooks = "*"
+typos = "*"
+[feature.lint.tasks]
+pre-commit-install = "pre-commit install"
+pre-commit-run = "pre-commit run -a"
+
+[tasks]
+test = "pytest"
+
+[environments]
+default = []
+lint = { features = ["lint"], no-default-feature = true }

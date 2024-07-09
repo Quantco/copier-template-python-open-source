@@ -1,0 +1,113 @@
+name: CI Copier
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+# Automatically stop old builds on the same branch/PR
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pre-commit-checks:
+    name: Pre-commit Checks
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+      - name: Set up pixi
+        uses: prefix-dev/setup-pixi@ba3bb36eb2066252b2363392b7739741bb777659
+        with:
+          environments: default lint
+      - name: pre-commit
+        run: pixi run pre-commit-run --color=always --show-diff-on-failure
+
+  pytest:
+    name: pytest
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+      - name: Set up pixi
+        uses: prefix-dev/setup-pixi@ba3bb36eb2066252b2363392b7739741bb777659
+      - name: Cache pre-commit envs
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pre-commit
+          key: project-generation-pre-commit-${{ hashFiles('template/.pre-commit-config.yaml.jinja') }}
+      - name: Test
+        run: pixi run test
+
+  test-generated-package-ci:
+    name: Test CI of generated package (minimal-python = ${{ matrix.minimal-python-version }})
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        minimal-python-version: [py38, py310]
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Set up pixi
+        uses: prefix-dev/setup-pixi@ba3bb36eb2066252b2363392b7739741bb777659
+      - name: Test generated package CI
+        run: |
+          # Name of the generated package.
+          # Authentication for pushing to $REPO.
+          AUTH='authorization: Bearer ${{ secrets.GITHUB_TOKEN }}'
+          eval $(ssh-agent)
+          ssh-add - <<< "${{ secrets.SSH_PRIVATE_KEY }}"
+          # Set up local Git so that copier can run "git commit".
+          git config --global user.email "landocalrissian@example.com"
+          git config --global user.name "Lando Calrissian"
+          # Generate package with default settings + Windows CI.
+          copier copy \
+            --data project_name="Package" \
+            --data project_short_description="Example Package" \
+            --data github_user="LandoCalrissian" \
+            --data project_slug="package" \
+            --data minimal_python_version="${{ matrix.minimal-python-version }}" \
+            --defaults \
+            --trust \
+            . out
+          cd out
+          # Push the generated package's HEAD commit to a `ci/*` branch
+          cid=$(git rev-parse HEAD)
+          git push -f "${GITHUB_SERVER_URL/https:\/\//git@}:$GITHUB_REPOSITORY" $cid:refs/heads/ci/$GITHUB_SHA
+          # Use the GitHub API to wait for the generated package's CI to complete (success or failure).
+          # We look for a GitHub Actions run for the HEAD commit ID.
+          WORKFLOW_URL="$GITHUB_API_URL/repos/${GITHUB_REPOSITORY}/actions/runs?branch=ci/${GITHUB_SHA}&head_sha=${cid}"
+          echo "Waiting for inner CI to start"
+          while (( $(curl -Ls --header "$AUTH" "$WORKFLOW_URL" | jq -r ".workflow_runs | length") < 1 )); do
+            sleep 10
+          done
+          echo "Waiting for inner CI to complete"
+          while curl -Ls --header "$AUTH" "$WORKFLOW_URL" | jq -r ".workflow_runs | .[] | .status" | grep --invert-match completed > /dev/null; do
+            sleep 10
+          done
+          # Fail unless CI was successful.
+          if curl -Ls --header "$AUTH" "$WORKFLOW_URL" | jq -r ".workflow_runs | .[] | .conclusion" | grep --invert-match success > /dev/null; then
+            echo "CI pipeline failed"
+            exit 1
+          fi
+      - name: Clean up CI branch
+        if: always()
+        run: |
+          AUTH='authorization: Bearer ${{ secrets.GITHUB_TOKEN }}'
+          eval $(ssh-agent)
+          ssh-add - <<< "${{ secrets.SSH_PRIVATE_KEY }}"
+
+          git push -d "${GITHUB_SERVER_URL/https:\/\//git@}:$GITHUB_REPOSITORY" refs/heads/ci/$GITHUB_SHA
+
+          for line in $(curl -Ls --header "$AUTH" "$GITHUB_API_URL/repos/${GITHUB_REPOSITORY}/actions/runs?branch=ci/${GITHUB_SHA}&head_sha=${cid}" | jq -r ".workflow_runs | .[] | select(.status != \"completed\") | .id")
+          do
+            curl -Ls --header "$AUTH" --request POST "$GITHUB_API_URL/repos/${GITHUB_REPOSITORY}/actions/runs/$line/cancel" > /dev/null
+          done

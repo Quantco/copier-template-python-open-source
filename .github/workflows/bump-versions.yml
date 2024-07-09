@@ -1,0 +1,57 @@
+name: Autoupdate
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 6 * * *
+
+jobs:
+  update:
+    name: Update ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - script: update_actions
+            name: gh-actions
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+      - name: Set up Conda env
+        uses: mamba-org/setup-micromamba@f8b8a1e23a26f60a44c853292711bacfd3eac822
+        with:
+          environment-file: environment.yml
+      - name: Update ${{ matrix.name }}
+        run: python -m scripts.${{ matrix.script }}
+        shell: micromamba-shell {0}
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - uses: peter-evans/create-pull-request@6d6857d36972b65feb161a90e484f2984215f83e
+        with:
+          commit-message: Auto-update ${{ matrix.name }}
+          title: Auto-update ${{ matrix.name }}
+          body: |
+            New versions of pinned dependencies in ${{ matrix.name }} were detected.
+            This PR updates them to the latest version.
+          branch: update-${{ matrix.name }}
+          delete-branch: true
+      - name: Create issue on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: "open",
+              labels: "[bot] autoupdate"
+            }).then((issues) => {
+              if (issues.data.length === 0) {
+                github.rest.issues.create({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  title: "${{ matrix.name }} update failed",
+                  body: "See https://github.com/quantco/copier-template-python-open-source/actions/runs/${{ github.run_id }} for details.",
+                  labels: ["[bot] autoupdate"]
+                })
+              }
+            });

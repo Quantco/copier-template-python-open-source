@@ -1,0 +1,62 @@
+{%- raw -%}
+name: CI
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+# Automatically stop old builds on the same branch/PR
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pre-commit-checks:
+    name: Pre-commit Checks
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+      - name: Set up pixi
+        uses: prefix-dev/setup-pixi@ba3bb36eb2066252b2363392b7739741bb777659
+        with:
+          environments: default lint
+      - name: pre-commit
+        run: pixi run pre-commit-run --color=always --show-diff-on-failure
+{%- endraw %}
+
+  unit-tests:
+    name: pytest
+    timeout-minutes: 30
+    runs-on: {% if add_windows_tests_to_ci %}{% raw %}${{ matrix.os }}{% endraw %}{% else %}ubuntu-latest{% endif %}
+    strategy:
+      fail-fast: false
+      matrix:
+{%- set python_versions = ["py38", "py39", "py310", "py311", "py312"] %}
+{%- set minimal_version_index = python_versions.index(minimal_python_version) %}
+        environment:
+        {%- for python_version in python_versions[minimal_version_index:] %}
+          - {{ python_version }}
+        {%- endfor %}
+        {%- if add_windows_tests_to_ci %}
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+        {%- endif %}{% raw %}
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up pixi
+        uses: prefix-dev/setup-pixi@ba3bb36eb2066252b2363392b7739741bb777659
+        with:
+          environments: ${{ matrix.environment }}
+      - name: Install repository
+        run: pixi run -e ${{ matrix.environment }} postinstall
+      - name: Run pytest
+        run: pixi run -e ${{ matrix.environment }} test-coverage --color=yes
+{%- endraw %}

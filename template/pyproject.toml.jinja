@@ -1,0 +1,77 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm", "wheel"]
+
+[tool.setuptools_scm]
+version_scheme = "post-release"
+
+[project]
+name = "{{ project_slug }}"
+description = "{{ project_short_description }}"
+dynamic = ["version"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+{%- if minimal_python_version_sortable <= "py308" %}
+  "Programming Language :: Python :: 3.8",
+{%- endif %}
+{%- if minimal_python_version_sortable <= "py309" %}
+  "Programming Language :: Python :: 3.9",
+{%- endif %}
+{%- if minimal_python_version_sortable <= "py310" %}
+  "Programming Language :: Python :: 3.10",
+{%- endif %}
+{%- if minimal_python_version_sortable <= "py311" %}
+  "Programming Language :: Python :: 3.11",
+{%- endif %}
+  "Programming Language :: Python :: 3.12",
+]
+requires-python = ">={{ minimal_python_version[2:].replace('3', '3.') }}"
+
+[project.urls]
+repository = "{{ github_url }}"
+
+[tool.setuptools.packages.find]
+include = ["{{ project_slug_snake_case }}"]
+
+[project.scripts]
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+ignore = [
+  "N803", # https://docs.astral.sh/ruff/rules/invalid-argument-name
+  "N806", # https://docs.astral.sh/ruff/rules/non-lowercase-variable-in-function
+  "E501", # https://docs.astral.sh/ruff/faq/#is-the-ruff-linter-compatible-with-black
+]
+select = [
+  # pyflakes
+  "F",
+  # pycodestyle
+  "E",
+  "W",
+  # isort
+  "I",
+  # pep8-naming
+  "N",
+  # pyupgrade
+  "UP",
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.mypy]
+python_version = '{{ minimal_python_version[2:].replace('3', '3.') }}'
+no_implicit_optional = true
+check_untyped_defs = true
+
+# If you run into `missing library stubs or py.typed marker` errors
+# and no stubs are available for this library, you can add an override
+# to ignore the missing imports.
+# [[tool.mypy.overrides]]
+# module = ["my_module"]
+# ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
