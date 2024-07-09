@@ -88,10 +88,10 @@ jobs:
           git commit -m "Replace actions trigger with on: [push]"
           # Push the generated package's HEAD commit to a `ci/*` branch
           cid=$(git rev-parse HEAD)
-          git push -f "${GITHUB_SERVER_URL/https:\/\//git@}:$GITHUB_REPOSITORY" $cid:refs/heads/ci/$GITHUB_SHA
+          git push -f "${GITHUB_SERVER_URL/https:\/\//git@}:$GITHUB_REPOSITORY" $cid:refs/heads/ci/${GITHUB_SHA}-${{ matrix.minimal-python-version }}
           # Use the GitHub API to wait for the generated package's CI to complete (success or failure).
           # We look for a GitHub Actions run for the HEAD commit ID.
-          WORKFLOW_URL="$GITHUB_API_URL/repos/${GITHUB_REPOSITORY}/actions/runs?branch=ci/${GITHUB_SHA}&head_sha=${cid}"
+          WORKFLOW_URL="$GITHUB_API_URL/repos/${GITHUB_REPOSITORY}/actions/runs?branch=ci/${GITHUB_SHA}-${{ matrix.minimal-python-version }}&head_sha=${cid}"
           echo "Waiting for inner CI to start"
           while (( $(curl -Ls --header "$AUTH" "$WORKFLOW_URL" | jq -r ".workflow_runs | length") < 1 )); do
             sleep 10
@@ -112,9 +112,9 @@ jobs:
           eval $(ssh-agent)
           ssh-add - <<< "${{ secrets.SSH_PRIVATE_KEY }}"
 
-          git push -d "${GITHUB_SERVER_URL/https:\/\//git@}:$GITHUB_REPOSITORY" refs/heads/ci/$GITHUB_SHA
+          git push -d "${GITHUB_SERVER_URL/https:\/\//git@}:$GITHUB_REPOSITORY" refs/heads/ci/$GITHUB_SHA-${{ matrix.minimal-python-version }}
 
-          for line in $(curl -Ls --header "$AUTH" "$GITHUB_API_URL/repos/${GITHUB_REPOSITORY}/actions/runs?branch=ci/${GITHUB_SHA}&head_sha=${cid}" | jq -r ".workflow_runs | .[] | select(.status != \"completed\") | .id")
+          for line in $(curl -Ls --header "$AUTH" "$GITHUB_API_URL/repos/${GITHUB_REPOSITORY}/actions/runs?branch=ci/${GITHUB_SHA}-${{ matrix.minimal-python-version }}&head_sha=${cid}" | jq -r ".workflow_runs | .[] | select(.status != \"completed\") | .id")
           do
             curl -Ls --header "$AUTH" --request POST "$GITHUB_API_URL/repos/${GITHUB_REPOSITORY}/actions/runs/$line/cancel" > /dev/null
           done

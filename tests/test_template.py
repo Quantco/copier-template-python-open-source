@@ -48,7 +48,9 @@ def test_devcontainer(generate_project, use_devcontainer):
 @pytest.mark.parametrize("add_autobump_workflow", [True, False])
 def test_add_autobump_workflow(generate_project, add_autobump_workflow):
     path = generate_project({"add_autobump_workflow": add_autobump_workflow})
-    assert (path / ".github" / "workflows" / "update-lockfiles.yml").exists() == add_autobump_workflow
+    assert (
+        path / ".github" / "workflows" / "update-lockfiles.yml"
+    ).exists() == add_autobump_workflow
 
 
 @pytest.mark.parametrize(
