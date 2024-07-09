@@ -26,6 +26,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/funcy-2.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/gh-2.52.0-he0e2781_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/git-2.45.2-pl5321ha099dd3_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/go-yq-4.44.2-h8b461db_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/identify-2.6.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/importlib-metadata-8.0.0-pyha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/iniconfig-2.0.0-pyhd8ed1ab_0.conda
@@ -118,6 +119,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/funcy-2.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/gh-2.52.0-he13f2d6_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/git-2.45.2-pl5321hb0c6a96_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-64/go-yq-4.44.2-hfdf4475_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/identify-2.6.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/importlib-metadata-8.0.0-pyha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/iniconfig-2.0.0-pyhd8ed1ab_0.conda
@@ -204,6 +206,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/funcy-2.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/gh-2.52.0-h163aea0_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/git-2.45.2-pl5321h41514c7_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/go-yq-4.44.2-h99b78c6_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/identify-2.6.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/importlib-metadata-8.0.0-pyha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/iniconfig-2.0.0-pyhd8ed1ab_0.conda
@@ -289,6 +292,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/funcy-2.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/gh-2.52.0-h36e2d1d_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/git-2.45.2-h57928b3_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/win-64/go-yq-4.44.2-h2466b09_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/identify-2.6.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/importlib-metadata-8.0.0-pyha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/iniconfig-2.0.0-pyhd8ed1ab_0.conda
@@ -1327,6 +1331,67 @@ packages:
   license: GPL-2.0-or-later and LGPL-2.1-or-later
   size: 11871414
   timestamp: 1718524953917
+- kind: conda
+  name: go-yq
+  version: 4.44.2
+  build: h2466b09_0
+  subdir: win-64
+  url: https://conda.anaconda.org/conda-forge/win-64/go-yq-4.44.2-h2466b09_0.conda
+  sha256: 284b26aeef97fea5f8b076f488f1e698c574c74bc92c0f9d694a38b80e9070e2
+  md5: e79173b4d4c48166817d9248b09a314d
+  depends:
+  - ucrt >=10.0.20348.0
+  - vc >=14.2,<15
+  - vc14_runtime >=14.29.30139
+  license: MIT
+  license_family: MIT
+  size: 7330908
+  timestamp: 1718519042900
+- kind: conda
+  name: go-yq
+  version: 4.44.2
+  build: h8b461db_0
+  subdir: linux-64
+  url: https://conda.anaconda.org/conda-forge/linux-64/go-yq-4.44.2-h8b461db_0.conda
+  sha256: be8bf02baa3e1185fa160a349375bcd0b43751aff625722d04226969404760cd
+  md5: d1623ab147bf37c3c083989e1c517a35
+  depends:
+  - __glibc >=2.17
+  - libgcc-ng >=12
+  license: MIT
+  license_family: MIT
+  size: 3468241
+  timestamp: 1718518470574
+- kind: conda
+  name: go-yq
+  version: 4.44.2
+  build: h99b78c6_0
+  subdir: osx-arm64
+  url: https://conda.anaconda.org/conda-forge/osx-arm64/go-yq-4.44.2-h99b78c6_0.conda
+  sha256: 1580203042b6c770ef1ce46c23d10ee7136877f8aa5e77a5c3da0014f3776567
+  md5: 5107663d414ce947d748d668915b0bd0
+  depends:
+  - __osx >=11.0
+  license: MIT
+  license_family: MIT
+  size: 3266981
+  timestamp: 1718518684882
+- kind: conda
+  name: go-yq
+  version: 4.44.2
+  build: hfdf4475_0
+  subdir: osx-64
+  url: https://conda.anaconda.org/conda-forge/osx-64/go-yq-4.44.2-hfdf4475_0.conda
+  sha256: a61539b12e381a85189714890fabb67ad87f75d07bfd7a6338858f794d8f46c8
+  md5: 06f5abffacc647d532cac54532213daf
+  depends:
+  - __osx >=10.13
+  constrains:
+  - __osx>=10.12
+  license: MIT
+  license_family: MIT
+  size: 3510512
+  timestamp: 1718518541178
 - kind: conda
   name: icu
   version: '73.2'

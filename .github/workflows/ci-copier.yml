@@ -51,7 +51,6 @@ jobs:
     strategy:
       matrix:
         minimal-python-version: [py38, py310]
-
     steps:
       - name: Checkout branch
         uses: actions/checkout@v4
@@ -59,6 +58,8 @@ jobs:
           ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Set up pixi
         uses: prefix-dev/setup-pixi@ba3bb36eb2066252b2363392b7739741bb777659
+        with:
+          activate-environment: true
       - name: Test generated package CI
         run: |
           # Name of the generated package.
@@ -70,7 +71,7 @@ jobs:
           git config --global user.email "landocalrissian@example.com"
           git config --global user.name "Lando Calrissian"
           # Generate package with default settings + Windows CI.
-          pixi run copier copy \
+          copier copy \
             --data project_name="Package" \
             --data project_short_description="Example Package" \
             --data github_user="LandoCalrissian" \
@@ -80,6 +81,11 @@ jobs:
             --trust \
             . out
           cd out
+          # Replace actions trigger with on: [push]
+          yq eval '.on = ["push"]' -i .github/workflows/ci.yml
+          yq eval '.on = ["push"]' -i .github/workflows/build.yml
+          git add .github/workflows/ci.yml .github/workflows/build.yml
+          git commit -m "Replace actions trigger with on: [push]"
           # Push the generated package's HEAD commit to a `ci/*` branch
           cid=$(git rev-parse HEAD)
           git push -f "${GITHUB_SERVER_URL/https:\/\//git@}:$GITHUB_REPOSITORY" $cid:refs/heads/ci/$GITHUB_SHA
