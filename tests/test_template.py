@@ -15,7 +15,7 @@ def test_generation(generated_project, project_slug):
 
     pyproject = (generated_project / "pyproject.toml").read_text()
     assert (
-        'authors = [\n  { name = "Lando Calrissian", email = "lando@calrissian.org" }\n]'
+        'authors = [{ name = "Lando Calrissian", email = "lando@calrissian.org" }]'
         in pyproject
     )
 
