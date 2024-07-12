@@ -7,7 +7,9 @@ version_scheme = "post-release"
 [project]
 name = "{{ project_slug }}"
 description = "{{ project_short_description }}"
-authors = []
+authors = [
+  { name = "{{ author_name }}", email = "{{ author_email }}" }
+]
 dynamic = ["version"]
 classifiers = [
   "Programming Language :: Python :: 3",

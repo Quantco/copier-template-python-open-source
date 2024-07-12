@@ -70,7 +70,7 @@ jobs:
           git config --global user.name "Lando Calrissian"
           # Generate package with default settings + Windows CI.
           copier copy \
-            --data project_name="Package" \
+            --data project_slug="package" \
             --data project_short_description="Example Package" \
             --data github_user="LandoCalrissian" \
             --data project_slug="package" \

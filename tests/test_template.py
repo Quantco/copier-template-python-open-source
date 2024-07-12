@@ -13,6 +13,10 @@ def test_generation(generated_project, project_slug):
         in readme
     )
 
+    assert (
+        'authors = [\n  { name = "Lando Calrissian", email = "lando@calrissian.org" }\n]'
+    )
+
 
 def test_generation_incorrect_params(generate_project):
     with pytest.raises(subprocess.CalledProcessError):
