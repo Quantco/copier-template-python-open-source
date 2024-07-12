@@ -13,9 +13,10 @@ def test_generation(generated_project, project_slug):
         in readme
     )
 
+    pyproject = (generated_project / "pyproject.toml").read_text()
     assert (
         'authors = [\n  { name = "Lando Calrissian", email = "lando@calrissian.org" }\n]'
-        in readme
+        in pyproject
     )
 
 
