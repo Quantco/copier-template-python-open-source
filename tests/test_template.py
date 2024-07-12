@@ -8,7 +8,10 @@ from .utils import change_directory, git_init_add, remove_pixi_env_vars
 def test_generation(generated_project, project_slug):
     assert (generated_project / project_slug.replace("-", "_") / "__init__.py").exists()
     readme = (generated_project / "README.md").read_text()
-    assert f"https://img.shields.io/github/actions/workflow/status/LandoCalrissian/{project_slug}/ci.yml" in readme
+    assert (
+        f"https://img.shields.io/github/actions/workflow/status/LandoCalrissian/{project_slug}/ci.yml"
+        in readme
+    )
 
 
 def test_generation_incorrect_params(generate_project):
