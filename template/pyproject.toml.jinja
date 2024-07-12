@@ -7,6 +7,7 @@ version_scheme = "post-release"
 [project]
 name = "{{ project_slug }}"
 description = "{{ project_short_description }}"
+authors = [{ name = "{{ author_name }}", email = "{{ author_email }}" }]
 dynamic = ["version"]
 classifiers = [
   "Programming Language :: Python :: 3",
@@ -25,6 +26,8 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
 ]
 requires-python = ">={{ minimal_python_version[2:].replace('3', '3.') }}"
+readme = "README.md"
+dependencies = []
 
 [project.urls]
 repository = "{{ github_url }}"

@@ -14,9 +14,11 @@ def generate_project(tmp_path):
             extra_data = {}
 
         data = {
-            "project_name": "Project",
+            "project_slug": "project",
             "project_short_description": "A test project",
             "github_user": "LandoCalrissian",
+            "author_name": "Lando Calrissian",
+            "author_email": "lando@calrissian.org",
         }
         data.update(extra_data)
 

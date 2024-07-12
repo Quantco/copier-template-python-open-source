@@ -30,12 +30,6 @@ jobs:
         uses: actions/checkout@v4
       - name: Set up pixi
         uses: prefix-dev/setup-pixi@ba3bb36eb2066252b2363392b7739741bb777659
-      - name: Cache pre-commit envs
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cache/pre-commit
-          key: project-generation-pre-commit-${{ hashFiles('template/.pre-commit-config.yaml.jinja') }}
       - name: Test
         run: pixi run test --color=yes
         env:
@@ -70,9 +64,11 @@ jobs:
           git config --global user.name "Lando Calrissian"
           # Generate package with default settings + Windows CI.
           copier copy \
-            --data project_name="Package" \
+            --data project_slug="package" \
             --data project_short_description="Example Package" \
             --data github_user="LandoCalrissian" \
+            --data author_name="Lando Calrissian" \
+            --data author_email="lando@calrissian.org" \
             --data project_slug="package" \
             --data minimal_python_version="${{ matrix.minimal-python-version }}" \
             --defaults \

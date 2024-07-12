@@ -4,14 +4,9 @@ _preserve_symlinks: True
 _min_copier_version: "9.3.1"
 
 # questions
-project_name:
-  type: str
-  help: What is your project name?
-
 project_slug:
   type: str
   help: What is your project slug (i.e. pypi package name)?
-  default: "{{ project_name.lower().replace(' ', '-') }}"
   validator: >-
     {% if '_' in project_slug or ' ' in project_slug or '.' in project_slug %}
     The project slug should not contain underscores, spaces or dots.
@@ -28,15 +23,23 @@ project_short_description:
 
 github_user:
   type: str
-  help: What is your GitHub username?
+  help: What is your GitHub username (used for CODEOWNERS)?
+
+author_name:
+  type: str
+  help: What is your name (used for package author)?
+
+author_email:
+  type: str
+  help: What is your email (used for package author)?
 
 github_url:
   type: str
   help: What is the GitHub url of this project?
   default: https://github.com/{{ github_user }}/{{ project_slug }}
   validator: >-
-    {% if not github_url.startswith('https://github.com') or github_url.endswith('.git') %}
-    The GitHub URL should start with `https://github.com` and not end with `.git`, for example `https://github.com/LandoCalrissian/python-project`.
+    {% if not github_url.startswith('https://github.com/') or github_url.endswith('.git') %}
+    The GitHub URL should start with `https://github.com/` and not end with `.git`, for example `https://github.com/LandoCalrissian/python-project`.
     {% endif %}
 
 minimal_python_version:
