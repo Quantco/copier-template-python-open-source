@@ -15,6 +15,7 @@ def test_generation(generated_project, project_slug):
 
     assert (
         'authors = [\n  { name = "Lando Calrissian", email = "lando@calrissian.org" }\n]'
+        in readme
     )
 
 

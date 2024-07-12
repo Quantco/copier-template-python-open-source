@@ -18,7 +18,7 @@ def generate_project(tmp_path):
             "project_short_description": "A test project",
             "github_user": "LandoCalrissian",
             "author_name": "Lando Calrissian",
-            "author_email": "lando@calrissian.org"
+            "author_email": "lando@calrissian.org",
         }
         data.update(extra_data)
 
