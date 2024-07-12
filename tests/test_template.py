@@ -72,7 +72,7 @@ def test_minimal_python_version(generate_project, minimal_python_version: str):
     with open(path / "pyproject.toml") as f:
         pyproject_toml_content = f.read()
     assert (
-        f']\nrequires-python = ">={minimal_python_version_str}"\n\n[project.urls]'
+        f']\nrequires-python = ">={minimal_python_version_str}"\nreadme = "README.md'
         in pyproject_toml_content
     )
     assert (
