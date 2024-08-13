@@ -24,8 +24,10 @@ test-coverage = "pytest --cov={{ project_slug_snake_case }} --cov-report=xml --c
 
 [feature.build.dependencies]
 build = "*"
+twine = "*"
 [feature.build.tasks]
 build-wheel = "python -m build --no-isolation ."
+check-wheel = "twine check dist/*"
 
 [feature.lint.dependencies]
 pre-commit = "*"
