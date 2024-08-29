@@ -16,13 +16,12 @@ jobs:
     steps:
       - name: Checkout branch
         uses: actions/checkout@v4
-      - name: Set up Conda env
-        uses: mamba-org/setup-micromamba@f8b8a1e23a26f60a44c853292711bacfd3eac822
+      - name: Set up pixi
+        uses: prefix-dev/setup-pixi@ba3bb36eb2066252b2363392b7739741bb777659
         with:
-          environment-file: environment.yml
+          activate-environment: true
       - name: Update ${{ matrix.name }}
         run: python -m scripts.${{ matrix.script }}
-        shell: micromamba-shell {0}
         env:
           GH_TOKEN: ${{ github.token }}
       - uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c
