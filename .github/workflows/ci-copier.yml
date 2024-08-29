@@ -81,7 +81,7 @@ jobs:
           git add .github/workflows/ci.yml .github/workflows/build.yml
           git commit -m "Replace actions trigger with on: [push]"
           # create pixi.lock
-          pixi list
+          pixi list --manifest-path pixi.toml --color=always
           git add pixi.lock
           git commit -m "Create pixi.lock"
           # Push the generated package's HEAD commit to a `ci/*` branch
