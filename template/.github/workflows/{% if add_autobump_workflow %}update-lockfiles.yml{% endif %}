@@ -21,7 +21,7 @@ jobs:
         run: |
           pixi update --json --no-install | pixi exec pixi-diff-to-markdown >> diff.md
       - name: Create pull request
-        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c
+        uses: peter-evans/create-pull-request@87604c1f8952bb6cc81bbdc2013b27c44c95545d
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: Update pixi lockfile
