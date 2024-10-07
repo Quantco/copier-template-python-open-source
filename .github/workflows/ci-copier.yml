@@ -14,9 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v4.2.0
       - name: Set up pixi
-        uses: prefix-dev/setup-pixi@ba3bb36eb2066252b2363392b7739741bb777659
+        uses: prefix-dev/setup-pixi@ba3bb36eb2066252b2363392b7739741bb777659 # v0.8.1
         with:
           environments: default lint
       - name: pre-commit
@@ -27,9 +27,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v4.2.0
       - name: Set up pixi
-        uses: prefix-dev/setup-pixi@ba3bb36eb2066252b2363392b7739741bb777659
+        uses: prefix-dev/setup-pixi@ba3bb36eb2066252b2363392b7739741bb777659 # v0.8.1
       - name: Test
         run: pixi run test --color=yes
         env:
@@ -45,13 +45,17 @@ jobs:
         minimal-python-version: [py38, py310]
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v4.2.0
         with:
           ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Set up pixi
-        uses: prefix-dev/setup-pixi@ba3bb36eb2066252b2363392b7739741bb777659
+        uses: prefix-dev/setup-pixi@ba3bb36eb2066252b2363392b7739741bb777659 # v0.8.1
         with:
           activate-environment: true
+      - name: Generate branch name
+        id: branch
+        run: |
+          echo "name=ci/$GITHUB_SHA-${{ matrix.minimal-python-version }}" >> $GITHUB_OUTPUT
       - name: Test generated package CI
         run: |
           # Name of the generated package.
@@ -86,10 +90,10 @@ jobs:
           git commit -m "Create pixi.lock"
           # Push the generated package's HEAD commit to a `ci/*` branch
           cid=$(git rev-parse HEAD)
-          git push -f "${GITHUB_SERVER_URL/https:\/\//git@}:$GITHUB_REPOSITORY" $cid:refs/heads/ci/${GITHUB_SHA}-${{ matrix.minimal-python-version }}
+          git push -f "${GITHUB_SERVER_URL/https:\/\//git@}:$GITHUB_REPOSITORY" $cid:refs/heads/${{ steps.branch.outputs.name }}
           # Use the GitHub API to wait for the generated package's CI to complete (success or failure).
           # We look for a GitHub Actions run for the HEAD commit ID.
-          WORKFLOW_URL="$GITHUB_API_URL/repos/${GITHUB_REPOSITORY}/actions/runs?branch=ci/${GITHUB_SHA}-${{ matrix.minimal-python-version }}&head_sha=${cid}"
+          WORKFLOW_URL="$GITHUB_API_URL/repos/${GITHUB_REPOSITORY}/actions/runs?branch=${{ steps.branch.outputs.name }}&head_sha=${cid}"
           echo "Waiting for inner CI to start"
           while (( $(curl -Ls --header "$AUTH" "$WORKFLOW_URL" | jq -r ".workflow_runs | length") < 1 )); do
             sleep 10
@@ -106,12 +110,14 @@ jobs:
       - name: Clean up CI branch
         if: always()
         run: |
+          set -x
           AUTH='authorization: Bearer ${{ secrets.GITHUB_TOKEN }}'
           eval $(ssh-agent)
           ssh-add - <<< "${{ secrets.SSH_PRIVATE_KEY }}"
 
           git push -d "${GITHUB_SERVER_URL/https:\/\//git@}:$GITHUB_REPOSITORY" refs/heads/ci/$GITHUB_SHA-${{ matrix.minimal-python-version }}
 
+          cid=$(git rev-parse HEAD)
           for line in $(curl -Ls --header "$AUTH" "$GITHUB_API_URL/repos/${GITHUB_REPOSITORY}/actions/runs?branch=ci/${GITHUB_SHA}-${{ matrix.minimal-python-version }}&head_sha=${cid}" | jq -r ".workflow_runs | .[] | select(.status != \"completed\") | .id")
           do
             curl -Ls --header "$AUTH" --request POST "$GITHUB_API_URL/repos/${GITHUB_REPOSITORY}/actions/runs/$line/cancel" > /dev/null
