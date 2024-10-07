@@ -18,7 +18,7 @@ go-yq = "*"
 test = "pytest"
 generate-temp-repo = """
 export COPIER_PATH="$(mktemp -d)" && \
-copier copy --trust . "$COPIER_PATH" && \
+copier copy --trust --vcs-ref=HEAD . "$COPIER_PATH" && \
 echo "Generated repo to $COPIER_PATH"
 """
 
