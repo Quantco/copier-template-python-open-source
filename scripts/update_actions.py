@@ -1,56 +1,42 @@
 import os
 from pathlib import Path
 
-import ruamel.yaml
-
 from scripts.common import get_latest_github_tag
 
 
-def get_latest_pin(action: str, current_version: str) -> str:
-    latest_tag_name, latest_tag_sha = get_latest_github_tag(action)
+def update_workflow_actions(file_path: Path):
+    text = file_path.read_text()
+    lines = text.splitlines(keepends=True)
 
-    pin_by_major = current_version.startswith("v")
+    new_lines: list[str] = []
 
-    if pin_by_major:
-        major = latest_tag_name.split(".")[0]
-        return major
-    else:
-        return latest_tag_sha
+    for line in lines:
+        if "uses: " not in line:
+            new_lines.append(line)
+        else:
+            action_with_rest = line.split(":")[1].strip()
+            action, current_sha_with_version = action_with_rest.split("@")
+            current_sha, current_version = current_sha_with_version.split("#")
+            current_sha = current_sha.strip()
+            current_version = current_version.strip()
+            new_version, new_sha = get_latest_github_tag(action)
+            print(
+                f"{action}:"
+                f" current version: {current_version},"
+                f" latest version: {new_version}"
+            )
+            new_line = line.replace(current_sha, new_sha).replace(
+                current_version, new_version
+            )
+            new_lines.append(new_line)
 
-
-def update_workflow_actions(file_path: Path, dry_run: bool = False):
-    yaml = ruamel.yaml.YAML(typ="jinja2")
-    yaml.preserve_quotes = True
-    yaml.indent(mapping=2, sequence=4, offset=2)
-    yaml.width = 1000  # Prevent default wrapping
-
-    with open(file_path) as f:
-        workflow = yaml.load(f)
-
-    for job in workflow.get("jobs", {}).values():
-        for step in job.get("steps", []):
-            if "uses" in step:
-                action_ref = step["uses"]
-                action, _, current_version = action_ref.partition("@")
-                new_version = get_latest_pin(action, current_version)
-                print(
-                    f"{action}:"
-                    f" current version: {current_version},"
-                    f" latest version: {new_version}"
-                )
-                if new_version != current_version and not dry_run:
-                    step["uses"] = f"{action}@{new_version}"
-
-    with open(file_path, "w") as f:
-        yaml.dump(workflow, f)
+    file_path.write_text("".join(new_lines))
 
 
-def update_project_workflows(
-    path: str = "template/.github/workflows/", dry_run: bool = False
-):
+def update_project_workflows(path: str = "template/.github/workflows/"):
     for file in os.listdir(path):
-        print(f"Updating {file}")
-        update_workflow_actions(Path(path) / file, dry_run=dry_run)
+        print(f"Updating `{file}`")
+        update_workflow_actions(Path(path) / file)
 
 
 if __name__ == "__main__":
