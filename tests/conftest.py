@@ -66,6 +66,7 @@ def generated_project(project_slug, project_description, generate_project):
         }
     )
 
+
 @pytest.fixture(autouse=True)
 def mock_get_latest_github_tag(monkeypatch):
     def custom_get_latest_github_tag(_action: str) -> tuple[str, str]:
