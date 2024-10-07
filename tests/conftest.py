@@ -4,6 +4,8 @@ from pathlib import Path
 
 import pytest
 
+import scripts.common
+
 from .utils import git_user
 
 
@@ -62,4 +64,13 @@ def generated_project(project_slug, project_description, generate_project):
             "project_slug": project_slug,
             "project_short_description": project_description,
         }
+    )
+
+@pytest.fixture(autouse=True)
+def mock_get_latest_github_tag(monkeypatch):
+    def custom_get_latest_github_tag(_action: str) -> tuple[str, str]:
+        return "v9.9.9", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+
+    monkeypatch.setattr(
+        scripts.common, "get_latest_github_tag", custom_get_latest_github_tag
     )
