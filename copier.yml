@@ -7,9 +7,13 @@ _min_copier_version: "9.3.1"
 project_slug:
   type: str
   help: What is your project slug (i.e. pypi package name)?
+  placeholder: panel-<your_extension_name>
   validator: >-
     {% if '_' in project_slug or ' ' in project_slug or '.' in project_slug %}
     The project slug should not contain underscores, spaces or dots.
+    {% endif %}
+    {% if not project_slug.startswith('panel-') %}
+    The project slug should start with `panel-`.
     {% endif %}
 
 project_slug_snake_case:
@@ -20,10 +24,12 @@ project_slug_snake_case:
 project_short_description:
   type: str
   help: Enter a short description.
+  placeholder: Extends HoloViz Panel with a <your_extension_name> pane/widget/...
 
 github_user:
   type: str
   help: What is your GitHub username (used for CODEOWNERS)?
+  placeholder: holoviz
 
 author_name:
   type: str
@@ -46,22 +52,16 @@ minimal_python_version:
   type: str
   help: What is the minimal Python version you want to support?
   choices:
-    - py38
-    - py39
     - py310
     - py311
     - py312
-  default: py38
+    - py313
+  default: py310
 
 minimal_python_version_sortable:
   type: str
   default: "{{ minimal_python_version.replace('py38', 'py308').replace('py39', 'py309') }}"
   when: false
-
-use_devcontainer:
-  type: bool
-  help: Should this project use a devcontainer for development?
-  default: false
 
 add_autobump_workflow:
   type: bool
