@@ -28,7 +28,7 @@ jobs:
 
   pytest:
     timeout-minutes: 30
-    runs-on: {% if add_windows_tests_to_ci %}{% raw %}${{ matrix.os }}{% endraw %}{% else %}ubuntu-latest{% endif %}
+    runs-on: {% raw %}${{ matrix.os }}{% endraw %}
     strategy:
       fail-fast: false
       matrix:
