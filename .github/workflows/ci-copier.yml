@@ -42,12 +42,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        minimal-python-version: [py38, py310]
+        minimal-python-version: [py39, py311, py313]
     steps:
       - name: Checkout branch
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          fetch-depth: 0
       - name: Set up pixi
         uses: prefix-dev/setup-pixi@ba3bb36eb2066252b2363392b7739741bb777659 # v0.8.1
         with:
@@ -73,10 +74,10 @@ jobs:
             --data github_user="LandoCalrissian" \
             --data author_name="Lando Calrissian" \
             --data author_email="lando@calrissian.org" \
-            --data project_slug="package" \
             --data minimal_python_version="${{ matrix.minimal-python-version }}" \
             --defaults \
             --trust \
+            --vcs-ref HEAD \
             . out
           cd out
           # Replace actions trigger with on: [push]

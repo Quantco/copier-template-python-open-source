@@ -11,9 +11,6 @@ authors = [{ name = "{{ author_name }}", email = "{{ author_email }}" }]
 dynamic = ["version"]
 classifiers = [
   "Programming Language :: Python :: 3",
-{%- if minimal_python_version_sortable <= "py308" %}
-  "Programming Language :: Python :: 3.8",
-{%- endif %}
 {%- if minimal_python_version_sortable <= "py309" %}
   "Programming Language :: Python :: 3.9",
 {%- endif %}
@@ -23,9 +20,12 @@ classifiers = [
 {%- if minimal_python_version_sortable <= "py311" %}
   "Programming Language :: Python :: 3.11",
 {%- endif %}
+{%- if minimal_python_version_sortable <= "py312" %}
   "Programming Language :: Python :: 3.12",
+{%- endif %}
+  "Programming Language :: Python :: 3.13",
 ]
-requires-python = ">={{ minimal_python_version[2:].replace('3', '3.') }}"
+requires-python = ">={{ minimal_python_version.replace('py3', '3.') }}"
 readme = "README.md"
 dependencies = []
 
@@ -65,7 +65,7 @@ quote-style = "double"
 indent-style = "space"
 
 [tool.mypy]
-python_version = '{{ minimal_python_version[2:].replace('3', '3.') }}'
+python_version = '{{ minimal_python_version.replace('py3', '3.') }}'
 no_implicit_optional = true
 check_untyped_defs = true
 

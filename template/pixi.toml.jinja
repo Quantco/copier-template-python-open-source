@@ -7,7 +7,7 @@ platforms = ["osx-arm64", "osx-64", "linux-64", "win-64"]
 postinstall = "pip install --no-build-isolation --no-deps --disable-pip-version-check -e ."
 
 [dependencies]
-python = ">={{ minimal_python_version[2:].replace('3', '3.') }}"
+python = ">={{ minimal_python_version.replace('py3', '3.') }}"
 
 [host-dependencies]
 pip = "*"
@@ -43,9 +43,7 @@ typos = "*"
 pre-commit-install = "pre-commit install"
 pre-commit-run = "pre-commit run -a"
 
-{% if minimal_python_version_sortable <= "py308" %}[feature.py38.dependencies]
-python = "3.8.*"
-{% endif %}{% if minimal_python_version_sortable <= "py309" %}[feature.py39.dependencies]
+{% if minimal_python_version_sortable <= "py309" %}[feature.py39.dependencies]
 python = "3.9.*"
 {% endif %}{% if minimal_python_version_sortable <= "py310" %}[feature.py310.dependencies]
 python = "3.10.*"
@@ -53,13 +51,12 @@ python = "3.10.*"
 python = "3.11.*"
 {% endif %}{% if minimal_python_version_sortable <= "py312" %}[feature.py312.dependencies]
 python = "3.12.*"
+{% endif %}{% if minimal_python_version_sortable <= "py313" %}[feature.py313.dependencies]
+python = "3.13.*"
 {%- endif %}
 
 [environments]
 default = ["test"]
-{%- if minimal_python_version_sortable <= "py308" %}
-py38 = ["py38", "test"]
-{%- endif %}
 {%- if minimal_python_version_sortable <= "py309" %}
 py39 = ["py39", "test"]
 {%- endif %}
@@ -71,6 +68,9 @@ py311 = ["py311", "test"]
 {%- endif %}
 {%- if minimal_python_version_sortable <= "py312" %}
 py312 = ["py312", "test"]
+{%- endif %}
+{%- if minimal_python_version_sortable <= "py313" %}
+py313 = ["py313", "test"]
 {%- endif %}
 {%- if build_docs %}
 docs = ["docs"]
