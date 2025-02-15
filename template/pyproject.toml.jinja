@@ -65,7 +65,7 @@ quote-style = "double"
 indent-style = "space"
 
 [tool.mypy]
-python_version = '{{ minimal_python_version[2:].replace('3', '3.') }}'
+python_version = '{{ minimal_python_version.replace('py3', '3.') }}'
 no_implicit_optional = true
 check_untyped_defs = true
 
