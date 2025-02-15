@@ -63,7 +63,7 @@ def test_minimal_python_version(generate_project, minimal_python_version: str):
     minimal_python_version_str = minimal_python_version.replace("py", "").replace(
         "3", "3."
     )
-    all_supported_python_versions = ["3.9", "3.10", "3.11", "3.12" ,"3.13"]
+    all_supported_python_versions = ["3.9", "3.10", "3.11", "3.12", "3.13"]
     all_supported_python_envs = [
         f"py{version.replace('.', '')}" for version in all_supported_python_versions
     ]
