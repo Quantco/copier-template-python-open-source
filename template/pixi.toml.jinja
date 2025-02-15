@@ -7,7 +7,7 @@ platforms = ["osx-arm64", "osx-64", "linux-64", "win-64"]
 postinstall = "pip install --no-build-isolation --no-deps --disable-pip-version-check -e ."
 
 [dependencies]
-python = ">={{ minimal_python_version[2:].replace('3', '3.') }}"
+python = ">={{ minimal_python_version.replace('py3', '3.') }}"
 
 [host-dependencies]
 pip = "*"
