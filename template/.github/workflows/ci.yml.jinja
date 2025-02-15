@@ -32,7 +32,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-{%- set python_versions = ["py38", "py39", "py310", "py311", "py312"] %}
+{%- set python_versions = ["py39", "py310", "py311", "py312", "py313"] %}
 {%- set minimal_version_index = python_versions.index(minimal_python_version) %}
         environment:
         {%- for python_version in python_versions[minimal_version_index:] %}

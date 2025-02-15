@@ -46,16 +46,16 @@ minimal_python_version:
   type: str
   help: What is the minimal Python version you want to support?
   choices:
-    - py38
     - py39
     - py310
     - py311
     - py312
-  default: py38
+    - py313
+  default: py39
 
 minimal_python_version_sortable:
   type: str
-  default: "{{ minimal_python_version.replace('py38', 'py308').replace('py39', 'py309') }}"
+  default: "{{ minimal_python_version.replace('py39', 'py309') }}"
   when: false
 
 use_devcontainer:

@@ -57,13 +57,13 @@ def test_add_autobump_workflow(generate_project, add_autobump_workflow):
 
 
 @pytest.mark.parametrize(
-    "minimal_python_version", ["py38", "py39", "py310", "py311", "py312"]
+    "minimal_python_version", ["py39", "py310", "py311", "py312", "py313"]
 )
 def test_minimal_python_version(generate_project, minimal_python_version: str):
     minimal_python_version_str = minimal_python_version.replace("py", "").replace(
         "3", "3."
     )
-    all_supported_python_versions = ["3.8", "3.9", "3.10", "3.11", "3.12"]
+    all_supported_python_versions = ["3.9", "3.10", "3.11", "3.12" ,"3.13"]
     all_supported_python_envs = [
         f"py{version.replace('.', '')}" for version in all_supported_python_versions
     ]
