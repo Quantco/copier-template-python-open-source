@@ -74,10 +74,10 @@ jobs:
             --data github_user="LandoCalrissian" \
             --data author_name="Lando Calrissian" \
             --data author_email="lando@calrissian.org" \
-            --data project_slug="package" \
             --data minimal_python_version="${{ matrix.minimal-python-version }}" \
             --defaults \
             --trust \
+            --vcs-ref HEAD \
             . out
           cd out
           # Replace actions trigger with on: [push]
