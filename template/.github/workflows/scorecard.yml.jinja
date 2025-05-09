@@ -27,7 +27,7 @@ jobs:
 {%- endraw -%}
 {%- set github_repo_url = github_url.split("/")[-2:] -%}
     if: (github.event.repository.default_branch == github.ref_name || github.event_name == 'pull_request') && github.repository == '{{ github_repo_url|join("/") }}'
-{% raw %}
+{%- raw %}
     permissions:
       # Needed to upload the results to code-scanning dashboard.
       security-events: write
