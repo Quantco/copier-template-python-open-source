@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     # `publish_results: true` only works when run from the default branch. conditional can be removed if disabled.
 {%- endraw -%}
-{% set github_repo_url = github_url.split("/")[-2:] %}
+{%- set github_repo_url = github_url.split("/")[-2:] -%}
     if: (github.event.repository.default_branch == github.ref_name || github.event_name == 'pull_request') && github.repository == '{{ github_repo_url|join("/") }}'
 {% raw %}
     permissions:
@@ -81,4 +81,4 @@ jobs:
         uses: github/codeql-action/upload-sarif@97a2bfd2a3d26d458da69e548f7f859d6fca634d # v3.28.15
         with:
           sarif_file: results.sarif
-{%- endraw -%}
+{%- endraw %}
