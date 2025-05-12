@@ -69,7 +69,8 @@ def generated_project(project_slug, project_description, generate_project):
 
 @pytest.fixture(autouse=True)
 def mock_get_latest_github_tag(monkeypatch):
-    def custom_get_latest_github_tag(_action: str) -> tuple[str, str]:
+    def custom_get_latest_github_tag(repo_name: str) -> tuple[str, str]:
+        assert repo_name.count("/") == 1
         return "v9.9.9", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
     monkeypatch.setattr(

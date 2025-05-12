@@ -44,6 +44,7 @@ def test_actions_update(tmp_path):
                 test:
                     steps:
                     - uses: actions/upload-release-asset@64e5e85fc528f162d7ba7ce2d15a3bb67efb3d80 # v0.0.0
+                    - uses: actions/upload-release-asset/subdir-action@64e5e85fc528f162d7ba7ce2d15a3bb67efb3d80 # v0.0.0
                 """
             ).lstrip()
         )
@@ -62,6 +63,7 @@ def test_actions_update(tmp_path):
                 test:
                     steps:
                     - uses: actions/upload-release-asset@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa # v9.9.9
+                    - uses: actions/upload-release-asset/subdir-action@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa # v9.9.9
                 """
             ).lstrip()
         )
