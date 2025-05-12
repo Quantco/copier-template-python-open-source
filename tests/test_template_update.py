@@ -8,10 +8,6 @@ from textwrap import dedent
 REPO_ROOT = Path(__file__).parent.parent
 
 
-def custom_get_latest_github_tag(_action: str) -> tuple[str, str]:
-    return "v9.9.9", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-
-
 def test_template_actions_update(tmp_path: Path):
     # Arrange
     src = REPO_ROOT / "template" / ".github" / "workflows"
