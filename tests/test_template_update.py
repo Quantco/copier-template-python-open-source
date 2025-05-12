@@ -8,10 +8,6 @@ from textwrap import dedent
 REPO_ROOT = Path(__file__).parent.parent
 
 
-def custom_get_latest_github_tag(_action: str) -> tuple[str, str]:
-    return "v9.9.9", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-
-
 def test_template_actions_update(tmp_path: Path):
     # Arrange
     src = REPO_ROOT / "template" / ".github" / "workflows"
@@ -44,6 +40,7 @@ def test_actions_update(tmp_path):
                 test:
                     steps:
                     - uses: actions/upload-release-asset@64e5e85fc528f162d7ba7ce2d15a3bb67efb3d80 # v0.0.0
+                    - uses: actions/upload-release-asset/subdir-action@64e5e85fc528f162d7ba7ce2d15a3bb67efb3d80 # v0.0.0
                 """
             ).lstrip()
         )
@@ -62,6 +59,7 @@ def test_actions_update(tmp_path):
                 test:
                     steps:
                     - uses: actions/upload-release-asset@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa # v9.9.9
+                    - uses: actions/upload-release-asset/subdir-action@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa # v9.9.9
                 """
             ).lstrip()
         )
