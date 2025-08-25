@@ -1,4 +1,5 @@
-exclude: ^(\.copier-answers\.yml)|.pixi$
+# TODO: remove template/ once https://github.com/prefix-dev/pixi/issues/4432 is resolved
+exclude: ^(\.copier-answers\.yml)|template
 repos:
   - repo: local
     hooks:
