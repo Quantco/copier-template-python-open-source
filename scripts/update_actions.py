@@ -21,11 +21,7 @@ def update_workflow_actions(file_path: Path):
             current_sha = current_sha.strip()
             current_version = current_version.strip()
             new_version, new_sha = get_latest_github_tag(action_repo)
-            print(
-                f"{action}:"
-                f" current version: {current_version},"
-                f" latest version: {new_version}"
-            )
+            print(f"{action}: {current_version} -> {new_version}")
             new_line = line.replace(current_sha, new_sha).replace(
                 current_version, new_version
             )
