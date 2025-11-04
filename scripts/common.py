@@ -5,7 +5,7 @@ import json
 import re
 import subprocess
 
-TAG_REGEX = r"^v\d+\.\d+\.\d+$"
+TAG_REGEX = r"^v(\d+)\.(\d+)\.(\d+)$"
 
 
 def get_latest_github_tag(repo_name: str) -> tuple[str, str]:
@@ -14,9 +14,14 @@ def get_latest_github_tag(repo_name: str) -> tuple[str, str]:
     # This is a heuristic to get the "latest" tag.
     # Unfortunately, you cannot query the GitHub API for the latest release
     # because of things like https://github.com/actions/github-script/issues/676.
+    all_tags = set()
     for tag in json.loads(output):
         tag_name = tag["name"]
-        if re.match(TAG_REGEX, tag_name):
-            return tag_name, tag["commit"]["sha"]
+        if match := re.match(TAG_REGEX, tag_name):
+            major, minor, patch = match.groups()
+            all_tags.add(
+                (tag_name, tag["commit"]["sha"], (int(major), int(minor), int(patch)))
+            )
 
-    raise ValueError("No valid tag found")
+    tag_name, commit, _ = max(all_tags, key=lambda x: x[2])
+    return tag_name, commit
