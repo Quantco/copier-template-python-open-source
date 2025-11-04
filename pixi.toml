@@ -1,4 +1,4 @@
-[project]
+[workspace]
 name = "copier-template-python-open-source"
 description = "Copier template for python projects using pixi"
 channels = ["conda-forge"]
