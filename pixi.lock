@@ -39,6 +39,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jinja2-3.1.6-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jinja2-ansible-filters-1.3.2-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/ld_impl_linux-64-2.45.1-default_hbd61a6d_101.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/lefthook-2.1.3-hfc2019e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/libblas-3.11.0-5_h4a7cf45_openblas.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/libbrotlicommon-1.2.0-hb03c661_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/libbrotlidec-1.2.0-hb03c661_1.conda
@@ -151,6 +152,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/invoke-2.2.1-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jinja2-3.1.6-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jinja2-ansible-filters-1.3.2-pyhd8ed1ab_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-64/lefthook-2.1.3-h5839d16_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/libblas-3.11.0-5_he492b99_openblas.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/libbrotlicommon-1.2.0-h8616949_1.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/libbrotlidec-1.2.0-h8616949_1.conda
@@ -261,6 +263,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/invoke-2.2.1-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jinja2-3.1.6-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jinja2-ansible-filters-1.3.2-pyhd8ed1ab_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/lefthook-2.1.3-hf76c51c_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libblas-3.11.0-5_h51639a9_openblas.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libbrotlicommon-1.2.0-hc919400_1.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libbrotlidec-1.2.0-hc919400_1.conda
@@ -368,6 +371,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/invoke-2.2.1-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jinja2-3.1.6-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jinja2-ansible-filters-1.3.2-pyhd8ed1ab_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/win-64/lefthook-2.1.3-h11686cb_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/libblas-3.11.0-5_hf2e6a31_mkl.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/libcblas-3.11.0-5_h2a3cdd5_mkl.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/libexpat-2.7.4-hac47afa_0.conda
@@ -1083,6 +1087,36 @@ packages:
   license_family: GPL
   size: 725507
   timestamp: 1770267139900
+- conda: https://conda.anaconda.org/conda-forge/linux-64/lefthook-2.1.3-hfc2019e_0.conda
+  sha256: 4e1920e28caebfd3390db40a5c9de54e61c7cea7c4d33529681ef0cdce75db9d
+  md5: 4e8499eea9e011ec9bc456393e476e9e
+  license: MIT
+  license_family: MIT
+  size: 5427976
+  timestamp: 1772880297132
+- conda: https://conda.anaconda.org/conda-forge/osx-64/lefthook-2.1.3-h5839d16_0.conda
+  sha256: ab80b8e812143126f35ee544088fe3b14b6c850ba673375f1a0c56662de2e98e
+  md5: 3567e62b5112a4d1aac1a86de8d4c948
+  constrains:
+  - __osx >=10.12
+  license: MIT
+  license_family: MIT
+  size: 5451665
+  timestamp: 1772880363688
+- conda: https://conda.anaconda.org/conda-forge/osx-arm64/lefthook-2.1.3-hf76c51c_0.conda
+  sha256: 0c24eb31993bf9b8ce113c24f2cec9e63b37737fb873cde35ac20075ec9b6315
+  md5: 7ed19bc840d30f2fc03c8fe4e2963124
+  license: MIT
+  license_family: MIT
+  size: 4876834
+  timestamp: 1772880336167
+- conda: https://conda.anaconda.org/conda-forge/win-64/lefthook-2.1.3-h11686cb_0.conda
+  sha256: b8a9822a2f7a873ebfed076c14e95d56a65546c1db5595417698befced6e9c72
+  md5: 32b09a8107bfad62b53a6dd53da2bd50
+  license: MIT
+  license_family: MIT
+  size: 5359464
+  timestamp: 1772880338504
 - conda: https://conda.anaconda.org/conda-forge/linux-64/libblas-3.11.0-5_h4a7cf45_openblas.conda
   build_number: 5
   sha256: 18c72545080b86739352482ba14ba2c4815e19e26a7417ca21a95b76ec8da24c
