@@ -42,34 +42,34 @@ zizmor = "*"
 pre-commit-install = "lefthook install"
 lint = "lefthook run pre-commit --all-files"
 
-{% if minimal_python_version_sortable <= "py309" %}[feature.py39.dependencies]
-python = "3.9.*"
-{% endif %}{% if minimal_python_version_sortable <= "py310" %}[feature.py310.dependencies]
+{% if minimal_python_version <= "py310" %}[feature.py310.dependencies]
 python = "3.10.*"
-{% endif %}{% if minimal_python_version_sortable <= "py311" %}[feature.py311.dependencies]
+{% endif %}{% if minimal_python_version <= "py311" %}[feature.py311.dependencies]
 python = "3.11.*"
-{% endif %}{% if minimal_python_version_sortable <= "py312" %}[feature.py312.dependencies]
+{% endif %}{% if minimal_python_version <= "py312" %}[feature.py312.dependencies]
 python = "3.12.*"
-{% endif %}{% if minimal_python_version_sortable <= "py313" %}[feature.py313.dependencies]
+{% endif %}{% if minimal_python_version <= "py313" %}[feature.py313.dependencies]
 python = "3.13.*"
+{% endif %}{% if minimal_python_version <= "py314" %}[feature.py314.dependencies]
+python = "3.14.*"
 {%- endif %}
 
 [environments]
 default = ["test", "lint"]
-{%- if minimal_python_version_sortable <= "py309" %}
-py39 = ["py39", "test"]
-{%- endif %}
-{%- if minimal_python_version_sortable <= "py310" %}
+{%- if minimal_python_version <= "py310" %}
 py310 = ["py310", "test"]
 {%- endif %}
-{%- if minimal_python_version_sortable <= "py311" %}
+{%- if minimal_python_version <= "py311" %}
 py311 = ["py311", "test"]
 {%- endif %}
-{%- if minimal_python_version_sortable <= "py312" %}
+{%- if minimal_python_version <= "py312" %}
 py312 = ["py312", "test"]
 {%- endif %}
-{%- if minimal_python_version_sortable <= "py313" %}
+{%- if minimal_python_version <= "py313" %}
 py313 = ["py313", "test"]
+{%- endif %}
+{%- if minimal_python_version <= "py314" %}
+py314 = ["py314", "test"]
 {%- endif %}
 {%- if build_docs %}
 docs = ["docs"]

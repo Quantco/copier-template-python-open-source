@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        minimal-python-version: [py39, py311, py313]
+        minimal-python-version: [py310, py311, py314]
     steps:
       - name: Checkout branch
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -126,3 +126,20 @@ jobs:
           do
             curl -Ls --header "$AUTH" --request POST "$GITHUB_API_URL/repos/${GITHUB_REPOSITORY}/actions/runs/$line/cancel" > /dev/null
           done
+
+  finalize:
+    name: Test CI of generated package (all)
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    needs: test-generated-package-ci
+    if: always() && !cancelled()
+    steps:
+      - if: needs.test-generated-package-ci.result == 'success'
+        name: All tests passed
+        run: echo All tests passed
+
+      - if: needs.test-generated-package-ci.result != 'success'
+        name: Some tests failed
+        run: |
+          echo Some tests failed
+          exit 1
