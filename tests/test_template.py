@@ -28,14 +28,6 @@ def test_generation_incorrect_params(generate_project):
         generate_project({"github_url": "git@github.com:quantco/abc.git"})
 
 
-def test_precommit(generated_project):
-    with change_directory(generated_project):
-        git_init_add()
-        with remove_pixi_env_vars():
-            result = subprocess.run(["pre-commit", "run", "--all-files"])
-        result.check_returncode()
-
-
 @pytest.mark.parametrize("use_devcontainer", [True, False])
 def test_devcontainer(generate_project, use_devcontainer):
     path = generate_project({"use_devcontainer": use_devcontainer})

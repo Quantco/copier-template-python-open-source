@@ -34,8 +34,7 @@ typos = "*"
 zizmor = "*"
 [feature.lint.tasks]
 pre-commit-install = "pre-commit install"
-pre-commit-run = "pre-commit run -a"
+lint = "lefthook run pre-commit --all-files"
 
 [environments]
-default = []
-lint = { features = ["lint"], no-default-feature = true }
+default = ["lint"]

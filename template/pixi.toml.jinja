@@ -40,7 +40,7 @@ typos = "*"
 zizmor = "*"
 [feature.lint.tasks]
 pre-commit-install = "pre-commit install"
-pre-commit-run = "pre-commit run -a"
+lint = "lefthook run pre-commit --all-files"
 
 {% if minimal_python_version_sortable <= "py309" %}[feature.py39.dependencies]
 python = "3.9.*"
@@ -55,7 +55,7 @@ python = "3.13.*"
 {%- endif %}
 
 [environments]
-default = ["test"]
+default = ["test", "lint"]
 {%- if minimal_python_version_sortable <= "py309" %}
 py39 = ["py39", "test"]
 {%- endif %}
@@ -75,4 +75,3 @@ py313 = ["py313", "test"]
 docs = ["docs"]
 {%- endif %}
 build = ["build"]
-lint = { features = ["lint"], no-default-feature = true }
