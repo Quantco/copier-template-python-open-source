@@ -67,3 +67,10 @@ repos:
         language: system
         types: [text]
         require_serial: true
+      # zizmor
+      - id: zizmor
+        name: zizmor
+        entry: pixi run -e lint zizmor --min-severity high --fix .
+        language: system
+        types: [yaml]
+        pass_filenames: false
