@@ -46,12 +46,12 @@ minimal_python_version:
   type: str
   help: What is the minimal Python version you want to support?
   choices:
-    - py39
     - py310
     - py311
     - py312
     - py313
-  default: py39
+    - py314
+  default: py310
 
 use_devcontainer:
   type: bool
