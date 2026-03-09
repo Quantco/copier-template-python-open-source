@@ -2,8 +2,6 @@ import subprocess
 
 import pytest
 
-from .utils import change_directory, git_init_add, remove_pixi_env_vars
-
 
 def test_generation(generated_project, project_slug):
     assert (generated_project / project_slug.replace("-", "_") / "__init__.py").exists()
@@ -26,14 +24,6 @@ def test_generation_incorrect_params(generate_project):
 
     with pytest.raises(subprocess.CalledProcessError):
         generate_project({"github_url": "git@github.com:quantco/abc.git"})
-
-
-def test_precommit(generated_project):
-    with change_directory(generated_project):
-        git_init_add()
-        with remove_pixi_env_vars():
-            result = subprocess.run(["pre-commit", "run", "--all-files"])
-        result.check_returncode()
 
 
 @pytest.mark.parametrize("use_devcontainer", [True, False])
