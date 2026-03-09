@@ -3,7 +3,6 @@ import subprocess
 import pytest
 
 
-
 def test_generation(generated_project, project_slug):
     assert (generated_project / project_slug.replace("-", "_") / "__init__.py").exists()
     readme = (generated_project / "README.md").read_text()
