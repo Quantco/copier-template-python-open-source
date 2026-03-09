@@ -53,11 +53,6 @@ minimal_python_version:
     - py313
   default: py39
 
-minimal_python_version_sortable:
-  type: str
-  default: "{{ minimal_python_version.replace('py39', 'py309') }}"
-  when: false
-
 use_devcontainer:
   type: bool
   help: Should this project use a devcontainer for development?
