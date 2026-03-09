@@ -29,7 +29,7 @@ build-wheel = "python -m build --no-isolation ."
 check-wheel = "twine check dist/*"
 
 [feature.lint.dependencies]
-pre-commit = "*"
+lefthook = "*"
 insert-license-header = "*"
 docformatter = "*"
 ruff = "*"
@@ -39,7 +39,7 @@ pre-commit-hooks = "*"
 typos = "*"
 zizmor = "*"
 [feature.lint.tasks]
-pre-commit-install = "pre-commit install"
+pre-commit-install = "lefthook install"
 lint = "lefthook run pre-commit --all-files"
 
 {% if minimal_python_version_sortable <= "py309" %}[feature.py39.dependencies]
