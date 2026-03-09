@@ -46,6 +46,13 @@ def test_add_autobump_workflow(generate_project, add_autobump_workflow):
     ).exists() == add_autobump_workflow
 
 
+def test_agents_md(generated_project):
+    assert (generated_project / "AGENTS.md").exists()
+    claude_md = generated_project / ".claude" / "CLAUDE.md"
+    assert claude_md.is_symlink()
+    assert claude_md.resolve() == (generated_project / "AGENTS.md").resolve()
+
+
 @pytest.mark.parametrize(
     "minimal_python_version", ["py310", "py311", "py312", "py313", "py314"]
 )
