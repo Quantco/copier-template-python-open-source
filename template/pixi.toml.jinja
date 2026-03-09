@@ -28,7 +28,7 @@ test-coverage = "pytest --cov={{ project_slug_snake_case }} --cov-report=xml --c
 python = "*"
 hatchling = "*"
 python-build = "*"
-twine = "*"
+twine = ">=6"
 wheel = "*"
 [feature.build.tasks]
 build-wheel = "python -m build --no-isolation ."
