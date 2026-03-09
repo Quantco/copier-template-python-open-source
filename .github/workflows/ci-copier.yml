@@ -84,12 +84,11 @@ jobs:
           # Replace actions trigger with on: [push]
           yq eval '.on = ["push"]' -i .github/workflows/ci.yml
           yq eval '.on = ["push"]' -i .github/workflows/build.yml
-          git add .github/workflows/ci.yml .github/workflows/build.yml
-          git commit -m "Replace actions trigger with on: [push]"
+          git init
           # create pixi.lock
-          pixi list --manifest-path pixi.toml --color=always
-          git add pixi.lock
-          git commit -m "Create pixi.lock"
+          pixi lock --manifest-path pixi.toml --color=always
+          git add .
+          git commit -m "Initial commit"
           # Push the generated package's HEAD commit to a `ci/*` branch
           cid=$(git rev-parse HEAD)
           git push -f "${GITHUB_SERVER_URL/https:\/\//git@}:$GITHUB_REPOSITORY" $cid:refs/heads/${STEPS_BRANCH_OUTPUTS_NAME}
