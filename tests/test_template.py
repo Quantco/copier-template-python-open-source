@@ -2,7 +2,6 @@ import subprocess
 
 import pytest
 
-from .utils import change_directory, git_init_add, remove_pixi_env_vars
 
 
 def test_generation(generated_project, project_slug):
