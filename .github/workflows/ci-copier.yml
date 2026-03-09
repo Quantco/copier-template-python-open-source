@@ -91,10 +91,10 @@ jobs:
           git commit -m "Create pixi.lock"
           # Push the generated package's HEAD commit to a `ci/*` branch
           cid=$(git rev-parse HEAD)
-          git push -f "${GITHUB_SERVER_URL/https:\/\//git@}:$GITHUB_REPOSITORY" $cid:refs/heads/${{ steps.branch.outputs.name }}
+          git push -f "${GITHUB_SERVER_URL/https:\/\//git@}:$GITHUB_REPOSITORY" $cid:refs/heads/${STEPS_BRANCH_OUTPUTS_NAME}
           # Use the GitHub API to wait for the generated package's CI to complete (success or failure).
           # We look for a GitHub Actions run for the HEAD commit ID.
-          WORKFLOW_URL="$GITHUB_API_URL/repos/${GITHUB_REPOSITORY}/actions/runs?branch=${{ steps.branch.outputs.name }}&head_sha=${cid}"
+          WORKFLOW_URL="$GITHUB_API_URL/repos/${GITHUB_REPOSITORY}/actions/runs?branch=${STEPS_BRANCH_OUTPUTS_NAME}&head_sha=${cid}"
           echo "Waiting for inner CI to start"
           while (( $(curl -Ls --header "$AUTH" "$WORKFLOW_URL" | jq -r ".workflow_runs | length") < 1 )); do
             sleep 10
@@ -108,6 +108,8 @@ jobs:
             echo "CI pipeline failed"
             exit 1
           fi
+        env:
+          STEPS_BRANCH_OUTPUTS_NAME: ${{ steps.branch.outputs.name }}
       - name: Clean up CI branch
         if: always()
         run: |

@@ -31,6 +31,7 @@ prettier = "*"
 taplo = "*"
 pre-commit-hooks = "*"
 typos = "*"
+zizmor = "*"
 [feature.lint.tasks]
 pre-commit-install = "pre-commit install"
 pre-commit-run = "pre-commit run -a"
