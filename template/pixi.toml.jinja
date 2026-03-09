@@ -17,7 +17,7 @@ hatchling = "*"
 {{ project_slug if "." not in project_slug else ('"' ~ project_slug ~ '"') }} = { path = "." }
 
 [feature.test.dependencies]
-pytest = ">=6"
+pytest = "*"
 pytest-cov = "*"
 mypy = "*"
 [feature.test.tasks]
@@ -28,7 +28,7 @@ test-coverage = "pytest --cov={{ project_slug_snake_case }} --cov-report=xml --c
 python = "*"
 hatchling = "*"
 python-build = "*"
-twine = ">=6"
+twine = "*"
 [feature.build.tasks]
 build-wheel = "python -m build --no-isolation ."
 check-wheel = "twine check dist/*"
