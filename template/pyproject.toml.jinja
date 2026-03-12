@@ -1,14 +1,13 @@
 [build-system]
-requires = ["setuptools", "setuptools-scm", "wheel"]
-
-[tool.setuptools_scm]
-version_scheme = "post-release"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
 name = "{{ project_slug }}"
 description = "{{ project_short_description }}"
 authors = [{ name = "{{ author_name }}", email = "{{ author_email }}" }]
-dynamic = ["version"]
+# replaced in CI
+version = "0.0.0"
 classifiers = [
   "Programming Language :: Python :: 3",
 {%- if minimal_python_version <= "py310" %}
