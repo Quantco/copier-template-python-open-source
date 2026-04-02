@@ -46,4 +46,4 @@ pre-commit:
             run: pixi {run} typos --force-exclude {staged_files}
           - name: zizmor
             glob: "*.{yml,yaml}"
-            run: pixi {run} zizmor --no-progress --min-severity high --fix .
+            run: pixi {run} zizmor --no-progress --min-severity high --fix --offline .
