@@ -12,8 +12,14 @@ pixi exec --spec copier --spec ruamel.yaml -- copier copy --trust https://github
 To update to a newer template version:
 
 ```bash
-pixi exec --spec copier --spec ruamel.yaml -- copier update --defaults --trust
+pixi exec --spec copier --spec ruamel.yaml -- copier update --defaults --trust .
 ```
 
 Note that copier will show `Conflict` for files that have manual changes.
 This is normal. As long as there are no merge conflict markers in the files all patches applied cleanly.
+
+If you want to change any answer that you gave before, run:
+
+```bash
+pixi exec --spec copier --spec ruamel.yaml -- copier update --trust --defaults --vcs-ref=:current: --data answer_name=answer_value .
+```
