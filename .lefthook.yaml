@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/evilmartians/lefthook/refs/heads/master/schema.json
 output: [summary]
 templates:
-  run: run --quiet --no-progress
+  run: run --as-is --quiet --no-progress
 no_auto_install: true
 pre-commit:
   fail_on_changes: always
