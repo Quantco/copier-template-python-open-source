@@ -13,6 +13,7 @@ version = "*"
 [package.host-dependencies]
 python = ">={{ minimal_python_version.replace('py3', '3.') }}"
 hatchling = "*"
+uv = "*"
 
 [dependencies]
 {{ project_slug if "." not in project_slug else ('"' ~ project_slug ~ '"') }} = { path = "." }
