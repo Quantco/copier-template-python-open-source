@@ -26,7 +26,6 @@ echo "Generated repo to $COPIER_PATH"
 [feature.lint.dependencies]
 lefthook = "*"
 insert-license-header = "*"
-docformatter = "*"
 ruff = "*"
 prettier = "*"
 taplo = "*"
