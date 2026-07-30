@@ -14,7 +14,7 @@ jobs:
           - script: update_actions
             name: gh-actions
     steps:
-      - name: Checkout branch
+      - name: Check out branch
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - name: Set up pixi
         uses: prefix-dev/setup-pixi@5185adfbffb4bd703da3010310260805d89ebb11 # v0.9.6
