@@ -1,5 +1,3 @@
-# Disable line length check for this file
-
 import shutil
 from pathlib import Path
 from textwrap import dedent
