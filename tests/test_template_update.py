@@ -1,6 +1,3 @@
-# Disable line length check for this file
-# ruff: noqa: E501
-
 import shutil
 from pathlib import Path
 from textwrap import dedent
