@@ -70,7 +70,6 @@ mkdocs-bibtex = ">=2.16"
 pymdown-extensions = ">=10.0"
 mkdocs-macros-plugin = ">=1.0"
 mkdocs-table-reader-plugin = ">=3.1"
-python = "==3.12.12"
 [feature.docs.tasks.docs-serve]
 cmd = "mkdocs serve"
 [feature.docs.tasks.docs-build]
@@ -90,8 +89,7 @@ python = "3.14.*"
 {%- endif %}
 
 [environments]
-default = ["test", "build", "lint"]
-docs = ["docs"]
+default = ["test", "build", "lint", "docs"]
 {%- if minimal_python_version <= "py310" %}
 py310 = ["py310", "test"]
 {%- endif %}
