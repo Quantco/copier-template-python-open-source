@@ -13,6 +13,7 @@ SPDX-License-Identifier: CC-BY-4.0
 {#- REUSE-IgnoreEnd #}
 
 <!--- --8<-- [start:docs] -->
+
 # {{ project_slug }}
 
 [![CI](https://img.shields.io/github/actions/workflow/status/{{ github_url[19:] }}/ci.yml?style=flat-square&branch=main)]({{ github_url }}/actions/workflows/ci.yml)
@@ -20,6 +21,7 @@ SPDX-License-Identifier: CC-BY-4.0
 [![pypi-version](https://img.shields.io/pypi/v/{{ project_slug }}.svg?logo=pypi&logoColor=white&style=flat-square)](https://pypi.org/project/{{ project_slug }})
 [![python-version](https://img.shields.io/pypi/pyversions/{{ project_slug }}?logoColor=white&logo=python&style=flat-square)](https://pypi.org/project/{{ project_slug }})
 [![Documentation build status](https://readthedocs.org/projects/{{ project_slug }}/badge/?version=latest)]({{ docs_url }})
+
 <!--- --8<-- [end:docs] -->
 
 {%- if project_short_description %}
@@ -33,6 +35,7 @@ This project is managed by [pixi](https://pixi.prefix.dev/).
 You can install the package in development mode using:
 
 <!--- --8<-- [start:docs-install-dev] -->
+
 ```bash
 git clone {{ github_url }}
 cd {{ project_slug }}
@@ -40,6 +43,7 @@ cd {{ project_slug }}
 pixi run pre-commit-install
 pixi run test
 ```
+
 <!--- --8<-- [end:docs-install-dev] -->
 
 ## Documentation

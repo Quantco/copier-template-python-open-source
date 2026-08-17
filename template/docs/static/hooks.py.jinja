@@ -60,7 +60,7 @@ def _new_file(path: Path, config: dict, src_dir: str = ".") -> File:
         File: mkdocs object that links your file to the docs directory, ready to be added to the mkdocs file list.
     """
     return File(
-        path=path,
+        path=str(path),
         src_dir=src_dir,
         dest_dir=config["site_dir"],
         use_directory_urls=config["use_directory_urls"],

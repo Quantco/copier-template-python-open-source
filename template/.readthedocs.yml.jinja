@@ -22,11 +22,11 @@ build:
     python: "3.12"
   jobs:
     create_environment:
-    - asdf plugin add pixi
-    - asdf install pixi latest
-    - asdf global pixi latest
+      - asdf plugin add pixi
+      - asdf install pixi latest
+      - asdf global pixi latest
     install:
-    - pixi install -e default -e doc --frozen
+      - pixi install -e default -e doc --frozen
     build:
       html:
-      - pixi run docs-build $READTHEDOCS_OUTPUT
+        - pixi run docs-build $READTHEDOCS_OUTPUT
