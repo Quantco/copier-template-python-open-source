@@ -9,6 +9,7 @@ SPDX-License-Identifier: MIT
 #
 # SPDX-License-Identifier: {{ license }}
 
+{% raw -%}
 name: Build
 on:
   pull_request:
@@ -65,3 +66,4 @@ jobs:
           path: dist
       - name: Publish package on PyPi
         uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2
+{%- endraw %}
