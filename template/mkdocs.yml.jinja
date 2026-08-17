@@ -52,6 +52,8 @@ plugins:
       default_handler: python
       handlers:
         python:
+          inventories:
+          - https://docs.python.org/3/objects.inv
           options:
             docstring_section_style: spacy
             show_bases: true
@@ -63,8 +65,6 @@ plugins:
             show_root_toc_entry: false
             show_signature_annotations: false
           paths: [src]
-          import:
-            - https://docs.python.org/3/objects.inv
 watch:
   - src/{{ project_slug_snake_case }}
 extra_css:

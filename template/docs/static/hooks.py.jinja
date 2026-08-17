@@ -1,8 +1,6 @@
 {#
-SPDX-FileCopyrightText: 2025 QuantCo Inc
 SPDX-FileCopyrightText: 2026 copier-template-python-open-source contributors
 
-SPDX-License-Identifier: 0BSD
 SPDX-License-Identifier: MIT
 #}
 {# REUSE-IgnoreStart #}
@@ -20,15 +18,8 @@ import mkdocs.plugins
 from mkdocs.structure.files import File
 
 TEMPDIR = tempfile.TemporaryDirectory()
-# Add to this list if you want to ignore any other source files from the documentation API reference
-{%- if command_line_interface %}
-API_FILES_TO_IGNORE = ["cli.py"]
-{%- else %}
-API_FILES_TO_IGNORE = []
-{%- endif %}
 
 
-# Bump priority to ensure files are moved before jupyter notebook conversion takes place
 @mkdocs.plugins.event_priority(50)
 def on_files(files: list, config: dict, **kwargs) -> list:
     """Link (1) top-level files to mkdocs files and (2) generate the python API documentation.
@@ -41,11 +32,6 @@ def on_files(files: list, config: dict, **kwargs) -> list:
     Returns:
         list: Updated mkdocs file list.
     """
-    {%- if create_jupyter_notebook_directory %}
-    for file in sorted(Path("./examples").glob("*.ipynb")):
-        files.append(_new_file(file, config))
-        _get_nav_list(config["nav"], "Examples").append(file.as_posix())
-    {%- endif %}
     for file in Path("./resources").glob("**/*.*"):
         files.append(_new_file(file, config))
     files.append(_new_file(Path("./CHANGELOG.md"), config))

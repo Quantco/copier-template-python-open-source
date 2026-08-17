@@ -9,7 +9,7 @@ SPDX-License-Identifier: MIT
 # copier-template-python-open-source
 
 A copier template for python packages developed at QuantCo using the [pixi](https://github.com/prefix-dev/pixi) package manager.
-For documentation on pixi see [here](https://pixi.sh).
+For documentation on pixi see [here](https://pixi.prefix.dev/).
 
 ## Usage
 
