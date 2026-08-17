@@ -38,11 +38,15 @@ author_name:
 author_email:
   type: str
   help: What is your email (used for package author)?
+  validator: >-
+    {% if not (email | regex_search('^.*@.*$')) %}
+    Invalid email
+    {% endif %}
 
 repository_owner:
   type: str
   help: What is the GitHub organisation / user of this project, under which the repository will be hosted?
-  default: "{{ github_user }}"
+  default: "energy-models"
   validator: >-
     {% if not (repository_owner | regex_search('^[^\\s]+$')) %}
     Repository owner cannot contain spaces
