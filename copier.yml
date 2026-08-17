@@ -33,14 +33,24 @@ author_email:
   type: str
   help: What is your email (used for package author)?
 
+repository_owner:
+  type: str
+  help: What is the GitHub organisation / user of this project, under which the repository will be hosted?
+  default: "{{ github_user }}"
+  validator: >-
+    {% if not (repository_owner | regex_search('^[^\\s]+$')) %}
+    Repository owner cannot contain spaces
+    {% endif %}
+
 github_url:
   type: str
-  help: What is the GitHub url of this project?
-  default: https://github.com/{{ github_user }}/{{ project_slug }}
-  validator: >-
-    {% if not github_url.startswith('https://github.com/') or github_url.endswith('.git') %}
-    The GitHub URL should start with `https://github.com/` and not end with `.git`, for example `https://github.com/LandoCalrissian/python-project`.
-    {% endif %}
+  default: https://github.com/{{ repository_owner }}/{{ project_slug }}
+  when: false
+
+docs_url:
+  type: str
+  default: https://{{ project_slug }}.readthedocs.io
+  when: false
 
 minimal_python_version:
   type: str
@@ -53,6 +63,19 @@ minimal_python_version:
     - py314
   default: py310
 
+license:
+  help: Choose a license for your project.
+  default: MIT
+  choices:
+    "MIT license":
+      value: MIT
+    "BSD license":
+      value: BSD
+    "Apache Software License 2.0":
+      value: Apache-2.0
+    "GNU General Public License v3":
+      value: GPL-v3
+
 use_devcontainer:
   type: bool
   help: Should this project use a devcontainer for development?
@@ -62,3 +85,7 @@ add_autobump_workflow:
   type: bool
   help: Do you want to add a GitHub Workflow to automatically bump `pixi.lock`?
   default: true
+
+_tasks:
+  - "pixi run reuse download --all --source {{ _copier_conf.dst_path }}"
+  - "pixi run pre-commit-install"

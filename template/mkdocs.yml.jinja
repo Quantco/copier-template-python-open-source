@@ -1,0 +1,65 @@
+# SPDX-FileCopyrightText: {{ project_slug }} Contributors
+#
+# SPDX-License-Identifier: {{ license }}
+
+site_name: {{ project_title }}
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Contributing: contributing.md
+  - Changelog: CHANGELOG.md
+  - Reference: []
+theme:
+  name: material
+  custom_dir: docs/overrides
+  features:
+    - navigation.indexes
+    - navigation.top
+    - content.code.copy
+repo_url: {{ github_url }}
+site_dir: .docs
+markdown_extensions:
+  - admonition
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite:
+      style_plain_text: shell
+  - pymdownx.superfences
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      permalink: "#"
+      toc_depth: 3
+hooks:
+  - docs/static/hooks.py
+plugins:
+  - search
+  - autorefs
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          options:
+            docstring_section_style: spacy
+            show_bases: true
+            filters:
+              - "!^_"
+            merge_init_into_class: true
+            show_if_no_docstring: true
+            signature_crossrefs: true
+            show_root_toc_entry: false
+            show_signature_annotations: false
+          paths: [src]
+          import:
+            - https://docs.python.org/3/objects.inv
+watch:
+  - src/{{ project_slug_snake_case }}
+extra_css:
+  - static/extras.css

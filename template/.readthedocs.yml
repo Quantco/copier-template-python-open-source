@@ -1,0 +1,23 @@
+# SPDX-FileCopyrightText: {{ project_slug }} Contributors
+#
+# SPDX-License-Identifier: {{ license }}
+
+version: 2
+
+mkdocs:
+  configuration: mkdocs.yml
+
+build:
+  os: ubuntu-24.04
+  tools:
+    python: "3.12"
+  jobs:
+    create_environment:
+    - asdf plugin add pixi
+    - asdf install pixi latest
+    - asdf global pixi latest
+    install:
+    - pixi install -e default -e doc --frozen
+    build:
+      html:
+      - pixi run docs-build $READTHEDOCS_OUTPUT

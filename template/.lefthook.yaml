@@ -47,3 +47,5 @@ pre-commit:
           - name: zizmor
             glob: "*.{yml,yaml}"
             run: pixi {run} zizmor --no-progress --min-severity high --fix --offline .
+          - name: reuse
+            run: pixi {run} reuse lint

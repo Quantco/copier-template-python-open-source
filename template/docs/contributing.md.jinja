@@ -1,0 +1,142 @@
+# Contributing
+
+{{ module_name }} is an actively maintained and utilised project.
+
+## How to contribute
+
+to report issues, request features, or exchange with our community, just follow the links below.
+
+__Is something not working?__
+
+[:material-bug: Report a bug]({{ github_url }}/issues/new?template=BUG-REPORT.yml "Report a bug in {{ module_name }} by creating an issue and a reproduction"){ .md-button }
+
+__Missing information in our docs?__
+
+[:material-file-document: Report a docs issue]({{ github_url }}/issues/new?template=DOCS.yml "Report missing information or potential inconsistencies in our documentation"){ .md-button }
+
+__Want to submit an idea?__
+
+[:material-lightbulb-on: Request a change]({{ github_url }}/issues/new?template=FEATURE-REQUEST.yml "Propose a change or feature request or suggest an improvement"){ .md-button }
+
+__Have a question or need help?__
+
+[:material-chat-question: Ask a question]({{ github_url }}/discussions "Ask questions on our discussion board and get in touch with our community"){ .md-button }
+
+## Developing {{ module_name }}
+
+To find beginner-friendly existing bugs and feature requests you may like to start out with, take a look at our [good first issues]({{ github_url }}/contribute).
+
+### Setting up a development environment
+
+To create a development environment for {{ project_slug }}, use [pixi](https://pixi.sh/latest/):
+
+1. Install pixi following the [official instructions](https://pixi.sh/latest/installation/).
+1. Install the development environment in your local clone of the {{ project_slug }} repository:
+
+```sh
+pixi install
+```
+
+If you plan to make changes to the code then please make regular use of the following tools to verify the codebase while you work:
+
+- `pre-commit`: run `pixi run pre-commit install` in your command line to load inbuilt checks that will run every time you commit your changes.
+  The checks include:
+  1. check no large files have been staged
+  2. lint python files for major errors
+  3. format python files to conform with the [PEP8 standard](https://peps.python.org/pep-0008/).
+  You can also run these checks yourself at any time to ensure staged changes are clean by calling `pixi run pre-commit`.
+- `pixi run test` - run the unit test suite and check test coverage.
+
+## Documentation
+
+With any contribution, you may need to update / add to the documentation (in the `docs` directory).
+We use [MkDocs](https://www.mkdocs.org/) and the [Material](https://squidfunk.github.io/mkdocs-material/) theme to build and render our documentation, meaning you can write your documentation in Markdown files.
+
+Here are some use-cases that you may come across in which you are considering updating the documentation:
+
+??? question "I have updated the README.md"
+
+    We pipe sections of the README over to the documentation automatically.
+    If you put your changes between the commented lines `:::md <!--- --8<-- [start:docs] -->` and `:::md <!--- --8<-- [end:docs] -->` it will find its way to the documentation homepage.
+
+??? question annotate "I want to add a new page"
+
+    Add a Markdown file to the top-level in `docs`, e.g. `docs/my-page.md`.
+    Then, add a reference to that file within the `nav` key in `mkdocs.yml`, e.g.:
+
+    ```yaml
+    nav:
+    - Home: index.md
+    - Installation: installation.md
+    - Getting started: getting_started.md
+    - My Page: my-page.md
+    ```
+
+    You can also just rely on your document header to define the name in the navigation:
+    `my-page.md`
+
+    ```md
+    # My Page
+    ...
+    ```
+
+    `mkdocs.yml`
+
+    ```yaml
+    nav:
+    ...
+    - my-page.md
+    ...
+    ```
+
+??? question "I want to add images to my docs"
+
+    You should add any new images to the top-level `resources/` directory.
+    Within your Markdown, you will be able to reference these as follows:
+
+    ``` html
+    <figure>
+    <img src="../resources/filename.png", width="100%", style="background-color:white;", alt="accessible alternative text">
+    <figcaption>My caption.</figcaption>
+    </figure>
+    ```
+
+    Or:
+
+    ``` md
+    ![accessible alternative text](../resources/filename.png)
+    ```
+
+    The first approach gives you a bit more power, including having a figure caption.
+
+??? question "I want to update the Python API docs"
+
+    As with example notebooks, we update these pages automatically.
+    So, if you've added content within your project (a new class, module, etc.), you will see them in your next iteration of the documentation.
+
+??? question "I want to automatically process a number of files into pages in the docs"
+
+    You may have configuration files you want to add to the documentation for reference.
+    You should add your workflow to process these files to `docs/hooks.py`.
+    In that file, you can find examples of how we do it for other files (e.g. the python API docs).
+
+??? question "I want to view my documentation changes locally"
+
+    You can serve your documentation locally by calling `pixi run docs-serve` from the command line.
+    Once the documentation has been built you will see a link to navigate to in your browser, most likely <http://127.0.0.1:8000>.
+    When you make changes to your documentation, `mkdocs` will automatically rebuild everything so that you can check the effects of your changes without needing to rerun manually.
+
+??? question "I want to do something else"
+
+    We recommend exploring the [MkDocs](https://www.mkdocs.org/) and the [Material](https://squidfunk.github.io/mkdocs-material/) documentation if we haven't answered your question.
+
+## Updating the project when the template updates
+
+This project has been built with [copier](https://copier.readthedocs.io/).
+When changes are made to the base template, they can be merged into this project by running `pixi exec --with copier copier update --skip-answered`.
+
+You may be prompted to do this when you open a Pull Request, if our automated checks identify that the template is newer than that used in the project.
+
+## Submitting changes
+
+--8<-- "CONTRIBUTING.md:docs"
