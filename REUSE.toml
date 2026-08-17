@@ -1,0 +1,18 @@
+version = 1
+SPDX-PackageName = "copier-template-python-open-source"
+SPDX-PackageSupplier = "energy-models org <https://github.com/energy-models>"
+SPDX-PackageDownloadLocation = "https://github.com/energy-models/copier-template-python-open-source"
+
+[[annotations]]
+path = [
+    ".all-contributorsrc",
+]
+SPDX-FileCopyrightText = "copier-template-python-open-source contributors"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = [
+    "pixi.lock",
+]
+SPDX-FileCopyrightText = "copier-template-python-open-source contributors"
+SPDX-License-Identifier = "MIT"

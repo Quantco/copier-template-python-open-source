@@ -1,0 +1,31 @@
+{
+  "projectName": "copier-template-python-open-source",
+  "projectOwner": "energy-models",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "none",
+  "contributors": [
+    {
+      "login": brynpickering,
+      "name": Bryn Pickering,
+      "avatar_url": "https://github.com/brynpickering.png?v=4",
+      "profile": "https://github.com/brynpickering",
+      "contributions": [
+        "code",
+        "doc",
+        "ideas",
+        "projectManagement",
+        "maintenance",
+      ],
+      "firstContribution": "2026-08-17"
+    }
+  ],
+  "contributorsPerLine": 7,
+  "linkToUsage": false,
+  "contributorsSortAlphabetically": false
+}

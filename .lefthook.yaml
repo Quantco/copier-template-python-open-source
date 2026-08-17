@@ -56,3 +56,5 @@ pre-commit:
           - name: conftest
             glob: "Dockerfile*"
             run: pixi {run} conftest-run {staged_files}
+          - name: reuse
+            run: pixi {run} reuse lint
