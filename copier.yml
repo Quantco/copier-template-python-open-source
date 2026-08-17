@@ -93,5 +93,7 @@ add_autobump_workflow:
   default: true
 
 _tasks:
-  - "pixi run reuse download --all"
+  - "pixi exec --with git git init"
+  - "pixi install"
   - "pixi run pre-commit-install"
+  - "pixi run reuse download --all"
