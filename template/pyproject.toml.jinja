@@ -15,6 +15,9 @@ SPDX-License-Identifier: MIT
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.hatch.build.targets.sdist]
+only-include = ["src", "LICENSES", "README.md"]
+
 [project]
 name = "{{ project_slug }}"
 description = "{{ project_short_description }}"
@@ -77,6 +80,7 @@ indent-style = "space"
 python_version = '{{ minimal_python_version.replace('py3', '3.') }}'
 no_implicit_optional = true
 check_untyped_defs = true
+files = "src/"
 
 # If you run into `missing library stubs or py.typed marker` errors
 # and no stubs are available for this library, you can add an override
@@ -87,3 +91,7 @@ check_untyped_defs = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["src/"]
