@@ -4,8 +4,9 @@
 # SPDX-License-Identifier: 0BSD
 # SPDX-License-Identifier: MIT
 
-singleQuote": false
-bracketSpacing": true
-printWidth": 200
-endOfLine": "auto"
-tabWidth": 2
+singleQuote: false
+bracketSpacing: true
+printWidth: 200
+endOfLine: "auto"
+tabWidth: 2
+proseWrap: "never"
