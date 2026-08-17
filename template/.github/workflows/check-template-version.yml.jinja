@@ -1,0 +1,88 @@
+{#-
+SPDX-FileCopyrightText: modelblocks-org/data-module-template contributors
+SPDX-FileCopyrightText: 2026 copier-template-python-open-source contributors
+
+SPDX-License-Identifier: Apache-2.0
+SPDX-License-Identifier: MIT
+-#}
+{#- REUSE-IgnoreStart -#}
+# SPDX-FileCopyrightText: {{ project_slug }} Contributors
+#
+# SPDX-License-Identifier: {{ license }}
+{#- REUSE-IgnoreEnd #}
+
+# Check for changes in the upstream template. If changes are found, an issue is created.
+name: Template check
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 1 * *' # Runs at 00:00 UTC on the 1st day of every month
+
+defaults:
+  run:
+    shell: bash --noprofile --norc -euo pipefail {0}
+
+jobs:
+  copier-check-update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    env:
+      ISSUE_TITLE: Template update available
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Check for template updates
+        id: copier_check_update
+        run: |
+          update_json="$(uvx --from 'copier>=9.15.2' copier check-update --output-format json)"
+          echo "$update_json"
+          {
+            echo "update_available=$(jq -r '.update_available // false' <<< "$update_json")"
+            echo "current_version=$(jq -r '.current_version // "unknown"' <<< "$update_json")"
+            echo "latest_version=$(jq -r '.latest_version // "unknown"' <<< "$update_json")"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Check for existing update issue
+        if: steps.copier_check_update.outputs.update_available == 'true'
+        id: existing_issue
+        run: |
+          issue_count="$(gh issue list \
+            --repo "${{ github.repository }}" \
+            --state open \
+            --search "$ISSUE_TITLE in:title" \
+            --json title \
+            --jq "map(select(.title == \"$ISSUE_TITLE\")) | length")"
+          if [[ "$issue_count" -gt 0 ]]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Open update issue
+        if: steps.copier_check_update.outputs.update_available == 'true' && steps.existing_issue.outputs.exists != 'true'
+        run: |
+          gh issue create \
+            --repo "${{ github.repository }}" \
+            --title "$ISSUE_TITLE" \
+            --body "A new version of the Modelblocks data module template is available.
+
+          Current template version: ${{ steps.copier_check_update.outputs.current_version }}
+          Latest template version: ${{ steps.copier_check_update.outputs.latest_version }}
+
+          Please update this project using:
+
+          \`\`\`shell
+          pixi run template-update
+          \`\`\`
+
+          Review the resulting changes before merging them."
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

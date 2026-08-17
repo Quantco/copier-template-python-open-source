@@ -76,6 +76,11 @@ cmd = "mkdocs serve"
 cmd = "mkdocs build -d {{ dir }}/html"
 args = ["dir"]
 
+[feature.template.dependencies]
+copier = ">=9.16"
+[feature.template.tasks.template-update]
+cmd = "copier update --trust --skip-answered --skip-tasks ."
+
 {% if minimal_python_version <= "py312" %}[feature.py312.dependencies]
 python = "3.12.*"
 {% endif %}{% if minimal_python_version <= "py313" %}[feature.py313.dependencies]
@@ -86,6 +91,7 @@ python = "3.14.*"
 
 [environments]
 default = ["test", "build", "lint", "docs"]
+template = ["template"]
 {%- if minimal_python_version <= "py312" %}
 py312 = ["py312", "test"]
 {%- endif %}
