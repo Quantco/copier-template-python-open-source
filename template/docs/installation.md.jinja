@@ -1,16 +1,16 @@
-{#
+{#-
 SPDX-FileCopyrightText: 2026 copier-template-python-open-source contributors
 
 SPDX-License-Identifier: MIT
-#}
-{# REUSE-IgnoreStart #}
+-#}
+{#- REUSE-IgnoreStart -#}
 <!--
 SPDX-FileCopyrightText: PyPSA Contributors
 SPDX-FileCopyrightText: {{ project_slug }} contributors
 
 SPDX-License-Identifier: CC-BY-4.0
 -->
-{# REUSE-IgnoreEnd #}
+{#- REUSE-IgnoreEnd #}
 
 # Installation
 
@@ -23,13 +23,7 @@ SPDX-License-Identifier: CC-BY-4.0
     They are available for Windows, macOS, and GNU/Linux.
     It is always helpful to use dedicated environments.
 
-You can install {{ project_slug }} via all common package managers:
-
-=== "pip"
-
-    ``` bash
-    pip install {{ project_slug_snake_case }}
-    ```
+You can install `{{ project_slug }}` via all common package managers:
 
 === "pixi"
 
@@ -43,7 +37,21 @@ You can install {{ project_slug }} via all common package managers:
     uv add {{ project_slug_snake_case }}
     ```
 
-{{ project_slug }} is written and tested to be compatible with Python {{ minimal_python_version.replace('py3', '3.') }} and above.
+=== "conda"
+
+    ``` bash
+    conda create -n {{ project_slug }} "python>={{ minimal_python_version.replace('py3', '3.') }}" "pip"
+    conda activate {{ project_slug }}
+    pip install {{ project_slug_snake_case }}
+    ```
+
+=== "pip"
+
+    ``` bash
+    pip install {{ project_slug_snake_case }}
+    ```
+
+`{{ project_slug }}` is written and tested to be compatible with Python {{ minimal_python_version.replace('py3', '3.') }} and above.
 We recommend to use the latest version with active support (see [endoflife.date](https://endoflife.date/python)).
 
 
@@ -53,4 +61,4 @@ The install instructions are slightly different to create a development environm
 
 --8<-- "README.md:docs-install-dev"
 
-For more detailed installation instructions specific to developing the {{ project_slug }} codebase, see our [development documentation][setting-up-a-development-environment].
+For more detailed installation instructions specific to developing the `{{ project_slug }}` codebase, see our [development documentation][setting-up-a-development-environment].

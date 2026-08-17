@@ -1,14 +1,14 @@
-{#
+{#-
 SPDX-FileCopyrightText: 2026 copier-template-python-open-source contributors
 
 SPDX-License-Identifier: MIT
-#}
-{# REUSE-IgnoreStart #}
+-#}
+{#- REUSE-IgnoreStart -#}
 <!--
 SPDX-FileCopyrightText: {{ project_slug }} contributors
 SPDX-License-Identifier: CC-BY-4.0
 -->
-{# REUSE-IgnoreEnd #}
+{#- REUSE-IgnoreEnd #}
 
 # Contributing
 
@@ -18,32 +18,25 @@ SPDX-License-Identifier: CC-BY-4.0
 
 to report issues, request features, or exchange with our community, just follow the links below.
 
-__Is something not working?__
+<div class="grid cards" markdown>
 
-[:material-bug: Report a bug]({{ github_url }}/issues/new?template=BUG-REPORT.yml "Report a bug in {{ project_slug }} by creating an issue and a reproduction"){ .md-button }
+- [:material-bug: Report a bug]({{ github_url }}/issues/new?template=BUG-REPORT.yml)
+- [:material-file-document: Report a docs issue]({{ github_url }}/issues/new?template=DOCS.yml)
+- [:material-lightbulb-on: Request a change]({{ github_url }}/issues/new?template=FEATURE-REQUEST.yml)
+- [:material-chat-question: Ask a question]({{ github_url }}/discussions)
 
-__Missing information in our docs?__
+</div>
 
-[:material-file-document: Report a docs issue]({{ github_url }}/issues/new?template=DOCS.yml "Report missing information or potential inconsistencies in our documentation"){ .md-button }
-
-__Want to submit an idea?__
-
-[:material-lightbulb-on: Request a change]({{ github_url }}/issues/new?template=FEATURE-REQUEST.yml "Propose a change or feature request or suggest an improvement"){ .md-button }
-
-__Have a question or need help?__
-
-[:material-chat-question: Ask a question]({{ github_url }}/discussions "Ask questions on our discussion board and get in touch with our community"){ .md-button }
-
-## Developing {{ project_slug }}
+## Developing `{{ project_slug }}`
 
 To find beginner-friendly existing bugs and feature requests you may like to start out with, take a look at our [good first issues]({{ github_url }}/contribute).
 
 ### Setting up a development environment
 
-To create a development environment for {{ project_slug }}, use [pixi](https://pixi.prefix.dev/).
+To create a development environment for `{{ project_slug }}`, use [pixi](https://pixi.prefix.dev/).
 
 1. Install pixi following the [official instructions](https://pixi.prefix.dev/latest/installation/).
-1. Install the development environment in your local clone of the {{ project_slug }} repository:
+1. Install the development environment in your local clone of the `{{ project_slug }}` repository:
 
 ```sh
 pixi install

@@ -1,15 +1,15 @@
-{#
+{#-
 SPDX-FileCopyrightText: 2025 QuantCo Inc
 SPDX-FileCopyrightText: 2026 copier-template-python-open-source contributors
 
 SPDX-License-Identifier: 0BSD
 SPDX-License-Identifier: MIT
-#}
-{# REUSE-IgnoreStart #}
+-#}
+{#- REUSE-IgnoreStart -#}
 # SPDX-FileCopyrightText: {{ project_slug }} Contributors
 #
 # SPDX-License-Identifier: {{ license }}
-{# REUSE-IgnoreEnd #}
+{#- REUSE-IgnoreEnd #}
 
 [workspace]
 name = "{{ project_slug }}"
@@ -62,7 +62,7 @@ pre-commit-install = "lefthook install"
 lint = "lefthook run pre-commit --all-files"
 
 [feature.docs.dependencies]
-mkdocs = ">=1.6"
+mkdocs = ">=1.6,<2"
 mkdocs-material = ">=9.5"
 mkdocstrings = ">=0.29"
 mkdocstrings-python = ">=1.16"

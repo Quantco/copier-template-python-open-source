@@ -1,13 +1,13 @@
-{#
+{#-
 SPDX-FileCopyrightText: 2026 copier-template-python-open-source contributors
 
 SPDX-License-Identifier: MIT
-#}
-{# REUSE-IgnoreStart #}
+-#}
+{#- REUSE-IgnoreStart -#}
 # SPDX-FileCopyrightText: {{ project_slug }} Contributors
 #
 # SPDX-License-Identifier: {{ license }}
-{# REUSE-IgnoreEnd #}
+{#- REUSE-IgnoreEnd #}
 
 site_name: "{{ project_slug }}"
 nav:
@@ -26,7 +26,12 @@ repo_url: {{ github_url }}
 site_dir: .docs
 markdown_extensions:
   - admonition
-  - attr_list
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+      - name: mermaid
+        class: mermaid
+        format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
@@ -36,13 +41,15 @@ markdown_extensions:
       pygments_lang_class: true
   - pymdownx.inlinehilite:
       style_plain_text: shell
-  - pymdownx.superfences
   - pymdownx.snippets
   - pymdownx.tabbed:
       alternate_style: true
   - toc:
       permalink: "#"
       toc_depth: 3
+  - attr_list
+  - tables
+  - md_in_html
 hooks:
   - docs/static/hooks.py
 plugins:

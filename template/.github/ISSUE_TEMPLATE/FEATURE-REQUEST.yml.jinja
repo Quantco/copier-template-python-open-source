@@ -1,0 +1,35 @@
+{#-
+SPDX-FileCopyrightText: 2026 copier-template-python-open-source contributors
+
+SPDX-License-Identifier: MIT
+-#}
+{#- REUSE-IgnoreStart -#}
+# SPDX-FileCopyrightText: {{ project_slug }} Contributors
+#
+# SPDX-License-Identifier: {{ license }}
+{#- REUSE-IgnoreEnd #}
+
+name: Feature Request
+description: Suggest an idea for {{ project_slug }}.
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for letting us know about your idea!
+  - type: textarea
+    id: description
+    attributes:
+      label: What can be improved?
+      placeholder: Tell us what you would like to see!
+      value: "{{ project_slug }} should be more memory efficient!"
+    validations:
+      required: true
+  - type: textarea
+    id: version
+    attributes:
+      label: Version
+      description: What version of {{ project_slug_snake_case }} are you using?
+      placeholder: v0.0.1
+    validations:
+      required: true
