@@ -20,7 +20,7 @@ from mkdocs.structure.files import File
 TEMPDIR = tempfile.TemporaryDirectory()
 
 # Add to this list if you want to ignore any source files from the documentation API reference
-API_FILES_TO_IGNORE = []
+API_FILES_TO_IGNORE: list[str] = []
 
 
 @mkdocs.plugins.event_priority(50)

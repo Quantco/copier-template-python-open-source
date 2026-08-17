@@ -17,7 +17,7 @@ from .utils import git_user
 
 @pytest.fixture
 def generate_project(tmp_path):
-    def _generate(extra_data=None):
+    def _generate(extra_data=None, skip_tasks: bool = True):
         if extra_data is None:
             extra_data = {}
 
@@ -42,6 +42,7 @@ def generate_project(tmp_path):
                     "--defaults",
                     "--vcs-ref=HEAD",
                     "--trust",
+                    "--skip-tasks" if skip_tasks else "",
                     *data,
                     directory.parent,
                     tmp_path,

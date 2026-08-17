@@ -76,11 +76,7 @@ cmd = "mkdocs serve"
 cmd = "mkdocs build -d {{ dir }}/html"
 args = ["dir"]
 
-{% if minimal_python_version <= "py310" %}[feature.py310.dependencies]
-python = "3.10.*"
-{% endif %}{% if minimal_python_version <= "py311" %}[feature.py311.dependencies]
-python = "3.11.*"
-{% endif %}{% if minimal_python_version <= "py312" %}[feature.py312.dependencies]
+{% if minimal_python_version <= "py312" %}[feature.py312.dependencies]
 python = "3.12.*"
 {% endif %}{% if minimal_python_version <= "py313" %}[feature.py313.dependencies]
 python = "3.13.*"
@@ -90,12 +86,6 @@ python = "3.14.*"
 
 [environments]
 default = ["test", "build", "lint", "docs"]
-{%- if minimal_python_version <= "py310" %}
-py310 = ["py310", "test"]
-{%- endif %}
-{%- if minimal_python_version <= "py311" %}
-py311 = ["py311", "test"]
-{%- endif %}
 {%- if minimal_python_version <= "py312" %}
 py312 = ["py312", "test"]
 {%- endif %}

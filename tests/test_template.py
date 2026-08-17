@@ -10,10 +10,12 @@ import pytest
 
 
 def test_generation(generated_project, project_slug):
-    assert (generated_project / project_slug.replace("-", "_") / "__init__.py").exists()
+    assert (
+        generated_project / "src" / project_slug.replace("-", "_") / "__init__.py"
+    ).exists()
     readme = (generated_project / "README.md").read_text()
     assert (
-        f"https://img.shields.io/github/actions/workflow/status/LandoCalrissian/{project_slug}/ci.yml"
+        f"https://img.shields.io/github/actions/workflow/status/energy-models/{project_slug}/ci.yml"
         in readme
     )
 
@@ -29,7 +31,10 @@ def test_generation_incorrect_params(generate_project):
         generate_project({"project_slug": "test_project"})
 
     with pytest.raises(subprocess.CalledProcessError):
-        generate_project({"github_url": "git@github.com:quantco/abc.git"})
+        generate_project({"repository_owner": "Lando Calrissian"})
+
+    with pytest.raises(subprocess.CalledProcessError):
+        generate_project({"author_email": "foo"})
 
 
 @pytest.mark.parametrize("use_devcontainer", [True, False])
@@ -59,12 +64,10 @@ def test_agents_md(generated_project):
     assert claude_md.resolve() == (generated_project / "AGENTS.md").resolve()
 
 
-@pytest.mark.parametrize(
-    "minimal_python_version", ["py310", "py311", "py312", "py313", "py314"]
-)
+@pytest.mark.parametrize("minimal_python_version", ["py312", "py313", "py314"])
 def test_minimal_python_version(generate_project, minimal_python_version: str):
     minimal_python_version_str = minimal_python_version.replace("py3", "3.")
-    all_supported_python_versions = ["3.10", "3.11", "3.12", "3.13", "3.14"]
+    all_supported_python_versions = ["3.12", "3.13", "3.14"]
     all_supported_python_envs = [
         f"py{version.replace('.', '')}" for version in all_supported_python_versions
     ]

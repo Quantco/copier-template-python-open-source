@@ -26,12 +26,6 @@ authors = [{ name = "{{ author_name }}", email = "{{ author_email }}" }]
 version = "0.0.0"
 classifiers = [
   "Programming Language :: Python :: 3",
-{%- if minimal_python_version <= "py310" %}
-  "Programming Language :: Python :: 3.10",
-{%- endif %}
-{%- if minimal_python_version <= "py311" %}
-  "Programming Language :: Python :: 3.11",
-{%- endif %}
 {%- if minimal_python_version <= "py312" %}
   "Programming Language :: Python :: 3.12",
 {%- endif %}
