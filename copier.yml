@@ -39,7 +39,7 @@ author_email:
   type: str
   help: What is your email (used for package author)?
   validator: >-
-    {% if not (email | regex_search('^.*@.*$')) %}
+    {% if not (author_email | regex_search('^.*@.*$')) %}
     Invalid email
     {% endif %}
 
