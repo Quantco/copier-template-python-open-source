@@ -9,15 +9,4 @@ SPDX-License-Identifier: MIT
 #
 # SPDX-License-Identifier: {{ license }}
 
-version: 2
-updates:
-  - package-ecosystem: github-actions
-    directory: /
-    schedule:
-      interval: monthly
-    groups:
-      gh-actions:
-        patterns:
-          - "*"
-    cooldown:
-      default-days: 7
+pixi.lock merge=binary linguist-language=YAML linguist-generated=true

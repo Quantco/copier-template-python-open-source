@@ -1,1 +1,5 @@
+# SPDX-FileCopyrightText: 2025 QuantCo Inc
+#
+# SPDX-License-Identifier: 0BSD
+
 pixi.lock merge=binary linguist-language=YAML linguist-generated=true

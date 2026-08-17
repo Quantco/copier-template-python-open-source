@@ -1,3 +1,11 @@
+<!--
+SPDX-FileCopyrightText: 2025 QuantCo Inc
+SPDX-FileCopyrightText: 2026 copier-template-python-open-source contributors
+
+SPDX-License-Identifier: 0BSD
+SPDX-License-Identifier: MIT
+-->
+
 # Reporting Security Issues
 
 We take security bugs in our projects seriously. We appreciate your efforts to responsibly disclose your findings, and will make every effort to acknowledge your contributions.

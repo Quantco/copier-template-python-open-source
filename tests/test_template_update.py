@@ -1,5 +1,10 @@
+# SPDX-FileCopyrightText: 2025 QuantCo Inc
+# SPDX-FileCopyrightText: 2026 copier-template-python-open-source contributors
+#
+# SPDX-License-Identifier: 0BSD
+# SPDX-License-Identifier: MIT
+
 # Disable line length check for this file
-# ruff: noqa: E501
 
 import shutil
 from pathlib import Path

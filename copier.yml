@@ -1,3 +1,9 @@
+# SPDX-FileCopyrightText: 2025 QuantCo Inc
+# SPDX-FileCopyrightText: 2026 copier-template-python-open-source contributors
+#
+# SPDX-License-Identifier: 0BSD
+# SPDX-License-Identifier: MIT
+
 # configuration
 _subdirectory: template
 _preserve_symlinks: True
@@ -87,5 +93,5 @@ add_autobump_workflow:
   default: true
 
 _tasks:
-  - "pixi run reuse download --all --source {{ _copier_conf.dst_path }}"
+  - "pixi run reuse download --all"
   - "pixi run pre-commit-install"

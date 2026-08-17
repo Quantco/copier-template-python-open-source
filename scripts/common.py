@@ -1,5 +1,10 @@
-# Copyright (c) QuantCo 2024-2025
+# Copyright (C) 2024-2025 QuantCo
+# SPDX-FileCopyrightText: 2025 QuantCo Inc
+# SPDX-FileCopyrightText: 2026 copier-template-python-open-source contributors
+#
+# SPDX-License-Identifier: 0BSD
 # SPDX-License-Identifier: LicenseRef-QuantCo
+# SPDX-License-Identifier: MIT
 
 import json
 import re

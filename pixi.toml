@@ -1,3 +1,9 @@
+# SPDX-FileCopyrightText: 2025 QuantCo Inc
+# SPDX-FileCopyrightText: 2026 copier-template-python-open-source contributors
+#
+# SPDX-License-Identifier: 0BSD
+# SPDX-License-Identifier: MIT
+
 [workspace]
 name = "copier-template-python-open-source"
 description = "Copier template for python projects using pixi"

@@ -1,0 +1,28 @@
+version = 1
+SPDX-PackageName = "{{ project_slug }}"
+SPDX-PackageSupplier = "{{ repository_owner }} Org <https://github.com/{{ repository_owner }}>"
+SPDX-PackageDownloadLocation = "{{ github_url }}"
+
+[[annotations]]
+path = [
+    ".github/pull_request_template.md",
+    ".all-contributorsrc",
+    "src/py.typed"
+]
+SPDX-FileCopyrightText = "{{ project_slug }} contributors"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = [
+    "resources/**/*",
+]
+SPDX-FileCopyrightText = "{{ project_slug }} contributors"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+[[annotations]]
+path = [
+    "pixi.lock",
+    {% if use_devcontainer %}".devcontainer/*"{% endif %}
+]
+SPDX-FileCopyrightText = "{{ project_slug }} contributors"
+SPDX-License-Identifier = "MIT"

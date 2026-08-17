@@ -1,3 +1,11 @@
+<!--
+SPDX-FileCopyrightText: 2025 QuantCo Inc
+SPDX-FileCopyrightText: 2026 copier-template-python-open-source contributors
+
+SPDX-License-Identifier: 0BSD
+SPDX-License-Identifier: MIT
+-->
+
 # copier-template-python-open-source
 
 A copier template for python packages developed at QuantCo using the [pixi](https://github.com/prefix-dev/pixi) package manager.
