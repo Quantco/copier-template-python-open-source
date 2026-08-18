@@ -4,75 +4,136 @@ SPDX-FileCopyrightText: 2026 copier-template-python-open-source contributors
 SPDX-License-Identifier: MIT
 -#}
 {#- REUSE-IgnoreStart -#}
-# SPDX-FileCopyrightText: {{ project_slug }} Contributors
+# SPDX-FileCopyrightText: {{ project_slug }} contributors
 #
 # SPDX-License-Identifier: {{ license }}
 {#- REUSE-IgnoreEnd #}
 
 site_name: "{{ project_slug }}"
-nav:
-  - Home: index.md
-  - Installation: installation.md
-  - Contributing: contributing.md
-  - Changelog: CHANGELOG.md
-  - Reference: []
+site_description: "{{ project_short_description }}"
+site_url: "{{ docs_url }}"
+repo_url: "{{ github_url }}"
+site_dir: .docs
+edit_uri: edit/main/docs/
+strict: true
+
+validation:
+  # Under `strict: true` a warning fails the build, which is the point: a page
+  # added without a nav entry, or a cross-reference that stopped resolving after
+  # a section was renamed, fails CI rather than shipping as a dead link.
+  nav:
+    omitted_files: warn
+    not_found: warn
+  links:
+    not_found: warn
+    anchors: warn
+    absolute_links: warn
+    unrecognized_links: warn
+
 theme:
   name: material
   features:
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.prune
     - navigation.indexes
     - navigation.top
+    - navigation.footer
+    - toc.follow
+    - search.suggest
+    - search.highlight
     - content.code.copy
-repo_url: {{ github_url }}
-site_dir: .docs
+    - content.code.annotate
+
+  language: en
+
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+  icon:
+    repo: fontawesome/brands/github
+
 markdown_extensions:
   - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
   - pymdownx.details
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
-  - pymdownx.highlight:
-      anchor_linenums: true
-      line_spans: __span
-      pygments_lang_class: true
-  - pymdownx.inlinehilite:
-      style_plain_text: shell
-  - pymdownx.snippets
-  - pymdownx.tabbed:
-      alternate_style: true
-  - toc:
-      permalink: "#"
-      toc_depth: 3
-  - attr_list
-  - tables
-  - md_in_html
 hooks:
   - docs/static/hooks.py
 plugins:
   - search
   - autorefs
   - mkdocstrings:
-      default_handler: python
       handlers:
         python:
           inventories:
             - https://docs.python.org/3/objects.inv
+          paths: ["src"]
           options:
-            docstring_section_style: spacy
-            show_bases: true
-            filters:
-              - "!^_"
-            merge_init_into_class: true
-            show_if_no_docstring: true
-            signature_crossrefs: true
+            # numpydoc throughout: `Parameters`/`Notes` with underlines, never
+            # `Args:`. Docstrings cite the Design pages from `Notes`, which
+            # griffe renders as an admonition of plain Markdown.
+            docstring_style: numpy
+            show_source: true
+            show_root_heading: true
+            show_root_full_path: false
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            members_order: source
+            separate_signature: true
             show_root_toc_entry: false
-            show_signature_annotations: false
-          paths: [src]
+            show_signature_annotations: true
+            signature_crossrefs: true
+            merge_init_into_class: true
+            filters: ["!^_"]
+
 watch:
   - src/{{ project_slug_snake_case }}
+  - README.md
+  - CHANGELOG.md
+  - CONTRIBUTING.md
+  - AGENTS.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: "{{ github_url }}"
+      name: "{{ project_slug}} on GitHub"
+    - icon: simple/pypi
+      link: https://pypi.org/project/{{ project_slug_snake_case }}/
+      name: "{{ project_slug}} on PyPI"
+
 extra_css:
   - static/extras.css
+
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Contributing: contributing.md
+  - Changelog: CHANGELOG.md
+  - Reference:
+    - reference/index.md
+    - AGENTS.md

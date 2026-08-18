@@ -22,9 +22,7 @@ To update to a newer template version:
 pixi exec --spec copier -- copier update --defaults --trust .
 ```
 
-Note that copier will show `Conflict` for files that have manual changes.
-This is normal.
-As long as there are no merge conflict markers in the files all patches applied cleanly.
+Note that copier will show `Conflict` for files that have manual changes. This is normal. As long as there are no merge conflict markers in the files all patches applied cleanly.
 
 If you want to change any answer that you gave before, run:
 

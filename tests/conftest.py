@@ -32,7 +32,7 @@ def generate_project(tmp_path):
 
         directory = Path(__file__).parent
         with git_user():
-            data = chain.from_iterable(
+            copier_data = chain.from_iterable(
                 [("--data", f"{key}={value}") for key, value in data.items()]
             )
             subprocess.check_call(
@@ -43,7 +43,7 @@ def generate_project(tmp_path):
                     "--vcs-ref=HEAD",
                     "--trust",
                     "--skip-tasks" if skip_tasks else "",
-                    *data,
+                    *copier_data,
                     directory.parent,
                     tmp_path,
                 ]

@@ -1,0 +1,20 @@
+{#-
+SPDX-FileCopyrightText: 2026 copier-template-python-open-source contributors
+
+SPDX-License-Identifier: MIT
+-#}
+{#- REUSE-IgnoreStart -#}
+# SPDX-FileCopyrightText: {{ project_slug }} contributors
+#
+# SPDX-License-Identifier: {{ license }}
+{#- REUSE-IgnoreEnd #}
+
+import pytest
+
+
+# This is a fixture that comes with the template; feel free to delete it.
+@pytest.fixture
+def base(tmp_path, monkeypatch):
+    """Point layer_dir at a temporary directory for the whole test."""
+    monkeypatch.setattr(duck, "DEFAULT_BASE_URI", str(tmp_path))
+    return str(tmp_path)

@@ -22,8 +22,6 @@ SPDX-License-Identifier: CC-BY-4.0
 [![python-version](https://img.shields.io/pypi/pyversions/{{ project_slug }}?logoColor=white&logo=python&style=flat-square)](https://pypi.org/project/{{ project_slug }})
 [![Documentation build status](https://readthedocs.org/projects/{{ project_slug }}/badge/?version=latest)]({{ docs_url }})
 
-<!--- --8<-- [end:docs] -->
-
 {%- if project_short_description %}
 
 {{ project_short_description }}
@@ -31,8 +29,16 @@ SPDX-License-Identifier: CC-BY-4.0
 
 ## Installation
 
-This project is managed by [pixi](https://pixi.prefix.dev/).
-You can install the package in development mode using:
+```bash
+pip install {{ project_slug_snake_case }}
+```
+
+<!--- --8<-- [end:docs-preamble] -->
+<!--- --8<-- [start:docs-postamble] -->
+
+## Development
+
+This project is managed by [pixi](https://pixi.prefix.dev/):
 
 <!--- --8<-- [start:docs-install-dev] -->
 
@@ -40,11 +46,17 @@ You can install the package in development mode using:
 git clone {{ github_url }}
 cd {{ project_slug }}
 
-pixi run pre-commit-install
-pixi run test
+pixi run test    # the test suite
+pixi run lint    # ruff, prettier, taplo, typos, zizmor, reuse, mypy
+pixi run docs-serve    # serve this site locally
 ```
 
 <!--- --8<-- [end:docs-install-dev] -->
+
+See the [contributing guide](./contributing.md) for the workflow and conventions,
+and [`AGENTS.md`](./AGENTS.md) for how AI-assisted contributions must be marked.
+
+<!--- --8<-- [end:docs-postamble] -->
 
 ## Documentation
 

@@ -14,9 +14,8 @@ project_slug:
   type: str
   help: What is your project slug (i.e. pypi package name)?
   validator: >-
-    {% if '_' in project_slug or ' ' in project_slug or '.' in project_slug %}
-    The project slug should not contain underscores, spaces or dots.
-    {% endif %}
+    {% if '_' in project_slug or ' ' in project_slug or '.' in project_slug %} The project slug should not contain underscores, spaces or dots. {% endif %}
+
 
 project_slug_snake_case:
   type: str
@@ -39,18 +38,16 @@ author_email:
   type: str
   help: What is your email (used for package author)?
   validator: >-
-    {% if not (author_email | regex_search('^.*@.*$')) %}
-    Invalid email
-    {% endif %}
+    {% if not (author_email | regex_search('^.*@.*$')) %} Invalid email {% endif %}
+
 
 repository_owner:
   type: str
   help: What is the GitHub organisation / user of this project, under which the repository will be hosted?
   default: "energy-models"
   validator: >-
-    {% if not (repository_owner | regex_search('^[^\\s]+$')) %}
-    Repository owner cannot contain spaces
-    {% endif %}
+    {% if not (repository_owner | regex_search('^[^\\s]+$')) %} Repository owner cannot contain spaces {% endif %}
+
 
 github_url:
   type: str

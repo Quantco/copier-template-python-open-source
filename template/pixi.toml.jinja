@@ -6,7 +6,7 @@ SPDX-License-Identifier: 0BSD
 SPDX-License-Identifier: MIT
 -#}
 {#- REUSE-IgnoreStart -#}
-# SPDX-FileCopyrightText: {{ project_slug }} Contributors
+# SPDX-FileCopyrightText: {{ project_slug }} contributors
 #
 # SPDX-License-Identifier: {{ license }}
 {#- REUSE-IgnoreEnd #}
@@ -61,6 +61,11 @@ reuse = "*"
 pre-commit-install = "lefthook install"
 lint = "lefthook run pre-commit --all-files"
 
+# Pinned below 2.0 deliberately. MkDocs 2.0 drops the plugin system, rewrites
+# theming and switches config to TOML with no migration path - it would take
+# mkdocstrings, and so the whole API Reference, with it. Material's own advice
+# is to pin `<2`; the successor they point at, Zensical, still calls its
+# mkdocstrings integration preliminary, so this stays here until that settles.
 [feature.docs.dependencies]
 mkdocs = ">=1.6,<2"
 mkdocs-material = ">=9.5"
@@ -70,11 +75,20 @@ mkdocs-bibtex = ">=2.16"
 pymdown-extensions = ">=10.0"
 mkdocs-macros-plugin = ">=1.0"
 mkdocs-table-reader-plugin = ">=3.1"
+# mkdocstrings formats signatures with one of these; without it every signature
+# renders on a single unwrapped line.
+ruff = "*"
 [feature.docs.tasks.docs-serve]
 cmd = "mkdocs serve"
 [feature.docs.tasks.docs-build]
-cmd = "mkdocs build -d {{ dir }}/html"
+cmd = "mkdocs build --strict {{ dir }}"
 args = ["dir"]
+
+# Material prints a red MkDocs 2.0 advisory on every build. It is editorial, not
+# a deprecation of anything used here, and in a CI log it reads as a failure -
+# which matters because `--strict` means a real problem is also red.
+[feature.docs.activation.env]
+NO_MKDOCS_2_WARNING = "1"
 
 [feature.template.dependencies]
 copier = ">=9.16"
