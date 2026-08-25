@@ -1,6 +1,7 @@
 [workspace]
 name = "{{ project_slug }}"
 channels = ["conda-forge"]
+exclude-newer = "7d"
 platforms = ["osx-arm64", "osx-64", "linux-64", "win-64"]
 preview = ["pixi-build"]
 
@@ -8,7 +9,7 @@ preview = ["pixi-build"]
 name = "{{ project_slug }}"
 [package.build.backend]
 name = "pixi-build-python"
-version = "*"
+version = "0.8.3"
 [package.host-dependencies]
 python = ">={{ minimal_python_version.replace('py3', '3.') }}"
 hatchling = "*"
