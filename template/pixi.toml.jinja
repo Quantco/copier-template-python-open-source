@@ -10,7 +10,7 @@ name = "{{ project_slug }}"
 [package.build.backend]
 name = "pixi-build-python"
 # Keep this pinned so `exclude-newer = "7d"` does not pick a too-recent backend release.
-version = "0.8.3"
+version = "==0.8.2"
 [package.host-dependencies]
 python = ">={{ minimal_python_version.replace('py3', '3.') }}"
 hatchling = "*"
