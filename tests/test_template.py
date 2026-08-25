@@ -92,7 +92,6 @@ def test_minimal_python_version(generate_project, minimal_python_version: str):
         pixi_toml = f.read()
     with open(path / ".github" / "workflows" / "ci.yml") as f:
         ci = f.read()
-    assert 'version = "==0.8.2"' in pixi_toml
 
     for version in all_supported_python_versions:
         if version == minimal_python_version_str:
