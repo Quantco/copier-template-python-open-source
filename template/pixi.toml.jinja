@@ -9,8 +9,6 @@ preview = ["pixi-build"]
 name = "{{ project_slug }}"
 [package.build.backend]
 name = "pixi-build-python"
-# Keep this unpinned so Pixi can resolve a backend that matches the currently
-# published `pixi-build-api-version`.
 version = "*"
 [package.host-dependencies]
 python = ">={{ minimal_python_version.replace('py3', '3.') }}"
