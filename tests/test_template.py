@@ -77,7 +77,7 @@ def test_minimal_python_version(generate_project, minimal_python_version: str):
         in pyproject_toml_content
     )
     assert (
-        f"[tool.mypy]\npython_version = '{minimal_python_version_str}'\nno_implicit"
+        f'[tool.mypy]\npython_version = "{minimal_python_version_str}"\nno_implicit'
         in pyproject_toml_content
     )
 

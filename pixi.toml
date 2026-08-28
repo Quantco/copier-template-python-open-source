@@ -28,10 +28,11 @@ lefthook = "*"
 insert-license-header = "*"
 ruff = "*"
 prettier = "*"
-taplo = "*"
+tombi = "*"
 pre-commit-hooks = "*"
 typos = "*"
 zizmor = "*"
+
 [feature.lint.tasks]
 pre-commit-install = "lefthook install"
 lint = "lefthook run pre-commit --all-files"
