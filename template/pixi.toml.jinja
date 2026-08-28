@@ -7,9 +7,11 @@ preview = ["pixi-build"]
 
 [package]
 name = "{{ project_slug }}"
+
 [package.build.backend]
 name = "pixi-build-python"
 version = "*"
+
 [package.host-dependencies]
 python = ">={{ minimal_python_version.replace('py3', '3.') }}"
 hatchling = "*"
@@ -22,6 +24,7 @@ uv = "*"
 pytest = "*"
 pytest-cov = "*"
 mypy = "*"
+
 [feature.test.tasks]
 test = "pytest"
 test-coverage = "pytest --cov={{ project_slug_snake_case }} --cov-report=xml --cov-report=term-missing"
@@ -31,6 +34,7 @@ python = "*"
 hatchling = "*"
 python-build = "*"
 twine = ">=6"
+
 [feature.build.tasks]
 build-wheel = "python -m build --no-isolation ."
 check-wheel = "twine check dist/*"
@@ -39,23 +43,37 @@ check-wheel = "twine check dist/*"
 lefthook = "*"
 ruff = "*"
 prettier = "*"
-taplo = "*"
+tombi = "*"
 pre-commit-hooks = "*"
 typos = "*"
 zizmor = "*"
+
 [feature.lint.tasks]
 pre-commit-install = "lefthook install"
 lint = "lefthook run pre-commit --all-files"
+{%- if minimal_python_version <= "py310" %}
 
-{% if minimal_python_version <= "py310" %}[feature.py310.dependencies]
+[feature.py310.dependencies]
 python = "3.10.*"
-{% endif %}{% if minimal_python_version <= "py311" %}[feature.py311.dependencies]
+{%- endif %}
+{%- if minimal_python_version <= "py311" %}
+
+[feature.py311.dependencies]
 python = "3.11.*"
-{% endif %}{% if minimal_python_version <= "py312" %}[feature.py312.dependencies]
+{%- endif %}
+{%- if minimal_python_version <= "py312" %}
+
+[feature.py312.dependencies]
 python = "3.12.*"
-{% endif %}{% if minimal_python_version <= "py313" %}[feature.py313.dependencies]
+{%- endif %}
+{%- if minimal_python_version <= "py313" %}
+
+[feature.py313.dependencies]
 python = "3.13.*"
-{% endif %}{% if minimal_python_version <= "py314" %}[feature.py314.dependencies]
+{%- endif %}
+{%- if minimal_python_version <= "py314" %}
+
+[feature.py314.dependencies]
 python = "3.14.*"
 {%- endif %}
 

@@ -38,9 +38,9 @@ line-length = 88
 
 [tool.ruff.lint]
 ignore = [
-  "N803", # https://docs.astral.sh/ruff/rules/invalid-argument-name
-  "N806", # https://docs.astral.sh/ruff/rules/non-lowercase-variable-in-function
-  "E501", # https://docs.astral.sh/ruff/faq/#is-the-ruff-linter-compatible-with-black
+  "N803",  # https://docs.astral.sh/ruff/rules/invalid-argument-name
+  "N806",  # https://docs.astral.sh/ruff/rules/non-lowercase-variable-in-function
+  "E501",  # https://docs.astral.sh/ruff/faq/#is-the-ruff-linter-compatible-with-black
 ]
 select = [
   # pyflakes
@@ -61,7 +61,7 @@ quote-style = "double"
 indent-style = "space"
 
 [tool.mypy]
-python_version = '{{ minimal_python_version.replace('py3', '3.') }}'
+python_version = "{{ minimal_python_version.replace('py3', '3.') }}"
 no_implicit_optional = true
 check_untyped_defs = true
 
@@ -71,6 +71,9 @@ check_untyped_defs = true
 # [[tool.mypy.overrides]]
 # module = ["my_module"]
 # ignore_missing_imports = true
+
+[tool.tombi]
+schema.enabled = false
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
