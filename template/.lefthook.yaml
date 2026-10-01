@@ -42,6 +42,8 @@ pre-commit:
             run: pixi {run} check-merge-conflict --assume-in-merge {staged_files}
           - name: typos
             glob: "*"
+            exclude:
+              - .copier-answers.yml
             file_types: text
             run: pixi {run} typos --force-exclude {staged_files}
           - name: zizmor
