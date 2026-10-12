@@ -53,12 +53,10 @@ def test_agents_md(generated_project):
     assert claude_md.resolve() == (generated_project / "AGENTS.md").resolve()
 
 
-@pytest.mark.parametrize(
-    "minimal_python_version", ["py310", "py311", "py312", "py313", "py314"]
-)
+@pytest.mark.parametrize("minimal_python_version", ["py311", "py312", "py313", "py314"])
 def test_minimal_python_version(generate_project, minimal_python_version: str):
     minimal_python_version_str = minimal_python_version.replace("py3", "3.")
-    all_supported_python_versions = ["3.10", "3.11", "3.12", "3.13", "3.14"]
+    all_supported_python_versions = ["3.11", "3.12", "3.13", "3.14"]
     all_supported_python_envs = [
         f"py{version.replace('.', '')}" for version in all_supported_python_versions
     ]
