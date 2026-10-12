@@ -59,13 +59,10 @@ docs/_build/
 *.so
 cmake-build-*/
 *.log
-
-# direnv, dotenv and similar
-*.pem
-.direnv
-.envrc
 .env
-.env.*
-!*.env.example
+
+# Claude
+.claude/*.local.*
+.claude/worktrees/
 
 # customizations per repo
