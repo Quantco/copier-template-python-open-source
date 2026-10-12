@@ -1,6 +1,8 @@
 import subprocess
+import tomllib
 
 import pytest
+from ruamel.yaml import YAML
 
 
 def test_generation(generated_project, project_slug):
@@ -106,3 +108,20 @@ def test_minimal_python_version(generate_project, minimal_python_version: str):
         else:
             assert env not in pixi_toml
             assert env not in ci
+
+
+def test_conda_deny(generated_project):
+    manifest = tomllib.loads((generated_project / "pixi.toml").read_text())
+    lint = manifest["feature"]["lint"]
+    assert "conda-deny" in lint["dependencies"]
+    task = lint["tasks"]["conda-deny-check"]
+    assert task == "conda-deny check"
+    policy = manifest["tool"]["conda-deny"]
+    assert "MIT" in policy["safe-licenses"]
+    assert policy["ignore-packages"] == [{"package": manifest["workspace"]["name"]}]
+    workflow = YAML(typ="safe").load(
+        (generated_project / ".github/workflows/ci.yml").read_text()
+    )
+    job = workflow["jobs"]["conda-deny"]
+    assert "if" not in job
+    assert any(step.get("run") == "pixi run conda-deny-check" for step in job["steps"])

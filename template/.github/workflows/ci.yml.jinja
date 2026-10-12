@@ -28,6 +28,20 @@ jobs:
         run: pixi run lint
         env:
           CLICOLOR_FORCE: 1
+
+  conda-deny:
+    name: Verify Software License Compliance
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Set up pixi
+        uses: prefix-dev/setup-pixi@9dabb60412d3d2d967a8d682f7ce01317af40514 # v0.11.0
+      - name: Run conda-deny
+        run: pixi run conda-deny-check
+        env:
+          CLICOLOR_FORCE: 1
 {%- endraw %}
 
   pytest:

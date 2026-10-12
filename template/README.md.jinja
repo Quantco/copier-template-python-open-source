@@ -21,3 +21,18 @@ cd {{ project_slug }}
 pixi run pre-commit-install
 pixi run test
 ```
+
+## Dependency licenses
+
+CI runs [conda-deny](https://github.com/Quantco/conda-deny) to check dependency
+licenses across all environments and platforms in `pixi.lock`. Run it locally with:
+
+```bash
+pixi run conda-deny-check
+```
+
+The starter allowlist in `[tool.conda-deny]` in `pixi.toml` covers the generated
+development and test environments, including their runtime dependencies.
+Review and customize it for your project's license policy. Dependencies with
+unlisted or missing licenses fail the check. The local project itself is excluded;
+set and review its license separately.

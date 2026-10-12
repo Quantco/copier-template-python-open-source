@@ -47,10 +47,12 @@ tombi = "*"
 pre-commit-hooks = "*"
 typos = "*"
 zizmor = "*"
+conda-deny = "*"
 
 [feature.lint.tasks]
 pre-commit-install = "lefthook install"
 lint = "lefthook run pre-commit --all-files"
+conda-deny-check = "conda-deny check"
 {%- if minimal_python_version <= "py310" %}
 
 [feature.py310.dependencies]
@@ -94,3 +96,37 @@ py313 = ["py313", "test"]
 {%- if minimal_python_version <= "py314" %}
 py314 = ["py314", "test"]
 {%- endif %}
+
+[tool.conda-deny]
+# Starter allowlist for the generated development and test environments.
+# Review this list for your project before adding dependencies.
+safe-licenses = [
+  "0BSD",
+  "AFL-2.1",
+  "Apache-2.0",
+  "Apache-2.0 WITH LLVM-exception",
+  "BSD-2-Clause",
+  "BSD-3-Clause",
+  "EPL-2.0",
+  "GPL-3.0-only",
+  "GPL-3.0-only WITH GCC-exception-3.1",
+  "ISC",
+  "LGPL-2.1-only",
+  "LGPL-2.1-or-later",
+  "LGPL-3.0-only",
+  "MIT",
+  "MPL-2.0",
+  "PSF-2.0",
+  "Python-2.0",
+  "TCL",
+  "X11",
+  "Zlib",
+  "blessing",
+  "bzip2-1.0.6",
+  "LicenseRef-Public-Domain",
+  # Windows runtime dependencies distributed through conda-forge.
+  "LicenseRef-MicrosoftVisualCpp2015-2022Runtime",
+  "LicenseRef-MicrosoftWindowsSDK10",
+]
+# Exclude the local project; this check covers third-party dependencies.
+ignore-packages = [{ package = "{{ project_slug }}" }]
