@@ -71,6 +71,11 @@ python = "3.13.*"
 [feature.py314.dependencies]
 python = "3.14.*"
 {%- endif %}
+{%- if minimal_python_version <= "py315" %}
+
+[feature.py315.dependencies]
+python = "3.15.*"
+{%- endif %}
 
 [environments]
 default = ["test", "build", "lint"]
@@ -85,4 +90,7 @@ py313 = ["py313", "test"]
 {%- endif %}
 {%- if minimal_python_version <= "py314" %}
 py314 = ["py314", "test"]
+{%- endif %}
+{%- if minimal_python_version <= "py315" %}
+py315 = ["py315", "test"]
 {%- endif %}
