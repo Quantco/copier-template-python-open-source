@@ -19,7 +19,10 @@ classifiers = [
 {%- if minimal_python_version <= "py313" %}
   "Programming Language :: Python :: 3.13",
 {%- endif %}
+{%- if minimal_python_version <= "py314" %}
   "Programming Language :: Python :: 3.14",
+{%- endif %}
+  "Programming Language :: Python :: 3.15",
 ]
 requires-python = ">={{ minimal_python_version.replace('py3', '3.') }}"
 readme = "README.md"
