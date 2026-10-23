@@ -1,7 +1,3 @@
-# Explicitly unignore hidden files for ripgrep. Individual folders can still
-# be ignored in the blocks below.
-!.*
-
 # macOS
 .DS_Store
 
